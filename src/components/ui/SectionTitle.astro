@@ -16,14 +16,14 @@ const alignClass = align === "center" ? "text-center items-center mx-auto" : "";
 
 <div class={`flex flex-col gap-4 max-w-2xl ${alignClass}`}>
   <h2
-    class={`font-serif font-semibold leading-none tracking-tight text-3xl md:text-3xl lg:text-4xl ${textColor}`}
+    class={`font-serif font-semibold leading-none tracking-tight text-balance text-3xl md:text-3xl lg:text-4xl ${textColor}`}
   >
     {title}
   </h2>
   {
     subtitle && (
       <p
-        class={`text-base md:text-lg leading-relaxed font-sans ${subtitleColor}`}
+        class={`text-base md:text-lg leading-relaxed font-sans text-balance ${subtitleColor}`}
       >
         {subtitle}
       </p>

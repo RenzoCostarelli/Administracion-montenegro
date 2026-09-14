@@ -10,7 +10,10 @@ const data = {
 };
 ---
 
-<section id="contacto" class="bg-mont-blue py-28 md:py-36 px-6 md:px-12 lg:px-20">
+<section
+  id="contacto"
+  class="bg-mont-blue pt-28 md:pt-36 px-6 md:px-12 pb-10 lg:px-20"
+>
   <div class="container mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
       <!-- Left: contact form -->
@@ -21,14 +24,19 @@ const data = {
           >
             {data.title}
           </h2>
-          <p class="text-mont-sand text-base md:text-lg leading-relaxed font-sans max-w-md">
+          <p
+            class="text-mont-sand text-base md:text-lg leading-relaxed font-sans max-w-md"
+          >
             {data.text}
           </p>
         </div>
 
         <form id="contact-form" class="flex flex-col gap-5 max-w-md" novalidate>
           <div class="flex flex-col gap-2">
-            <label for="name" class="text-mont-sand text-xs tracking-[0.15em] uppercase font-sans">
+            <label
+              for="name"
+              class="text-mont-sand text-xs tracking-[0.15em] uppercase font-sans"
+            >
               Nombre
             </label>
             <input
@@ -41,7 +49,10 @@ const data = {
           </div>
 
           <div class="flex flex-col gap-2">
-            <label for="email" class="text-mont-sand text-xs tracking-[0.15em] uppercase font-sans">
+            <label
+              for="email"
+              class="text-mont-sand text-xs tracking-[0.15em] uppercase font-sans"
+            >
               Email
             </label>
             <input
@@ -54,7 +65,10 @@ const data = {
           </div>
 
           <div class="flex flex-col gap-2">
-            <label for="message" class="text-mont-sand text-xs tracking-[0.15em] uppercase font-sans">
+            <label
+              for="message"
+              class="text-mont-sand text-xs tracking-[0.15em] uppercase font-sans"
+            >
               Mensaje
             </label>
             <textarea
@@ -66,24 +80,36 @@ const data = {
             ></textarea>
           </div>
 
-          <p id="contact-form-status" class="text-mont-sand text-sm font-sans hidden"></p>
+          <p
+            id="contact-form-status"
+            class="text-mont-sand text-sm font-sans hidden"
+          >
+          </p>
 
           <div class="mt-2">
-            <Button type="submit" variant="solid" tone="light">Enviar consulta</Button>
+            <Button type="submit" variant="solid" tone="light"
+              >Enviar consulta</Button
+            >
           </div>
         </form>
       </div>
 
       <!-- Right: contact info -->
       <div class="flex flex-col gap-8 lg:pt-2">
-        <div class="flex flex-col divide-y divide-mont-cream/10 border-t border-mont-cream/10">
+        <div
+          class="flex flex-col divide-y divide-mont-cream/10 border-t border-mont-cream/10"
+        >
           <a
             href={`mailto:${data.email}`}
             class="group flex items-center justify-between py-6 hover:opacity-70 transition-opacity"
           >
             <div class="flex flex-col gap-1">
-              <span class="text-mont-sand text-xs tracking-[0.2em] uppercase font-sans">Email</span>
-              <span class="text-mont-cream text-lg font-sans">{data.email}</span>
+              <span
+                class="text-mont-sand text-xs tracking-[0.2em] uppercase font-sans"
+                >Email</span
+              >
+              <span class="text-mont-cream text-lg font-sans">{data.email}</span
+              >
             </div>
           </a>
 
@@ -92,15 +118,24 @@ const data = {
             class="group flex items-center justify-between py-6 hover:opacity-70 transition-opacity"
           >
             <div class="flex flex-col gap-1">
-              <span class="text-mont-sand text-xs tracking-[0.2em] uppercase font-sans">Teléfono</span>
-              <span class="text-mont-cream text-lg font-sans">{data.phone}</span>
+              <span
+                class="text-mont-sand text-xs tracking-[0.2em] uppercase font-sans"
+                >Teléfono</span
+              >
+              <span class="text-mont-cream text-lg font-sans">{data.phone}</span
+              >
             </div>
           </a>
 
           <div class="flex items-center justify-between py-6">
             <div class="flex flex-col gap-1">
-              <span class="text-mont-sand text-xs tracking-[0.2em] uppercase font-sans">Dirección</span>
-              <span class="text-mont-cream text-lg font-sans">{data.address}</span>
+              <span
+                class="text-mont-sand text-xs tracking-[0.2em] uppercase font-sans"
+                >Dirección</span
+              >
+              <span class="text-mont-cream text-lg font-sans"
+                >{data.address}</span
+              >
             </div>
           </div>
         </div>
@@ -109,7 +144,7 @@ const data = {
 
     <!-- Footer strip -->
     <div
-      class="mt-24 md:mt-32 pt-8 border-t border-mont-cream/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-mont-sand text-xs font-sans tracking-wider"
+      class="mt-12 pt-8 border-t border-mont-cream/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-mont-sand text-xs font-sans tracking-wider"
     >
       <span>© {new Date().getFullYear()} Administración Montenegro</span>
       <span class="uppercase tracking-[0.2em]">Gestión que proyecta.</span>
@@ -140,7 +175,8 @@ const data = {
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
 
     if (status) {
-      status.textContent = "Se abrirá tu cliente de email para enviar la consulta.";
+      status.textContent =
+        "Se abrirá tu cliente de email para enviar la consulta.";
       status.classList.remove("hidden");
     }
   });

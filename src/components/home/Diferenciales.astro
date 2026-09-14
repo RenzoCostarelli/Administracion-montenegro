@@ -1,7 +1,9 @@
 ---
 const data = {
-  statement:
-    "Hay decisiones que resuelven el presente. Y hay decisiones que también construyen lo que viene.",
+  statement: {
+    line1: "Hay decisiones que resuelven el presente.",
+    line2: "Y hay decisiones que también construyen lo que viene.",
+  },
   body: "Conocer, ordenar, anticipar y decidir con criterio. Esa es la idea detrás de una gestión que proyecta.",
 };
 ---
@@ -13,13 +15,13 @@ const data = {
   <div class="container mx-auto flex flex-col gap-8">
     <h2
       id="diferenciales-statement"
-      class="font-serif font-light text-mont-cream leading-tight tracking-tight text-3xl md:text-4xl lg:text-5xl"
+      class="font-serif font-semibold text-mont-cream text-pretty tracking-tight text-2xl md:text-3xl lg:text-4xl"
     >
-      {data.statement}
+      {data.statement.line1}<br />{data.statement.line2}
     </h2>
     <p
       id="diferenciales-body"
-      class="text-mont-sand text-base md:text-lg leading-relaxed font-sans max-w-2xl"
+      class="text-mont-sand text-base md:text-lg leading-relaxed text-balance font-sans max-w-2xl"
     >
       {data.body}
     </p>
