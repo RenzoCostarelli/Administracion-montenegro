@@ -1,0 +1,163 @@
+---
+import Button from "./ui/Button.astro";
+
+const contactEmail = "oficinaadmmontenegro@gmail.com";
+---
+
+<section
+  class="bg-[#04517D] min-h-screen flex flex-col justify-between px-6 md:px-12 py-12"
+>
+  <div class="flex-1 flex items-center justify-center">
+    <div
+      class="cs-card container mx-auto max-w-2xl bg-neutral-50 rounded-md md:py-24 px-6 py-12 md:px-0 flex flex-col items-center text-center gap-10"
+    >
+      <img
+        class="cs-logo max-w-[90svw] mx-auto"
+        src="https://res.cloudinary.com/dztzomvin/image/upload/v1789071004/Logo_yxo5bl.svg"
+        alt="Administración Montenegro"
+        width="320"
+        height="160"
+        fetchpriority="high"
+      />
+
+      <div class="flex flex-col items-center gap-4">
+        <span
+          class="cs-badge text-mont-dark font-bold tracking-[0.2em] uppercase font-sans"
+        >
+          Próximamente
+        </span>
+
+        <p
+          class="cs-copy text-mont-dark-muted text-base md:text-lg leading-relaxed font-sans max-w-md"
+        >
+          Estamos renovando el sitio de Administración Montenegro. Muy pronto
+          vas a encontrar toda la información sobre administración de consorcios
+          e inmobiliaria, ordenada y clara, en un solo lugar.
+        </p>
+      </div>
+
+      <form
+        id="coming-soon-form"
+        class="cs-form w-full max-w-sm flex flex-col gap-4"
+        novalidate
+      >
+        <label
+          for="coming-soon-email"
+          class="text-mont-dark text-xs tracking-[0.15em] uppercase font-sans"
+        >
+          Dejanos tu email y te avisamos en cuanto esté listo.
+        </label>
+        <input
+          id="coming-soon-email"
+          name="email"
+          type="email"
+          required
+          placeholder="tu@email.com"
+          class="bg-transparent border-b border-mont-sand text-mont-dark placeholder:text-mont-dark-muted py-2 font-sans text-center focus:outline-none focus:border-mont-dark transition-colors"
+        />
+
+        <p
+          id="coming-soon-form-status"
+          class="text-mont-dark text-sm font-sans hidden"
+        >
+        </p>
+
+        <div class="mt-2 flex justify-center">
+          <Button
+            class="text-neutral-50"
+            type="submit"
+            variant="solid"
+            tone="dark">Avisarme</Button
+          >
+        </div>
+      </form>
+
+      <!-- <p class="text-mont-dark-muted text-sm font-sans">
+        Mientras tanto, escribinos a
+        <a
+          href={`mailto:${contactEmail}`}
+          class="underline hover:text-mont-dark transition-colors"
+          >{contactEmail}</a
+        >
+      </p> -->
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("coming-soon-form");
+  const status = document.getElementById("coming-soon-form-status");
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (!(form instanceof HTMLFormElement)) {
+      return;
+    }
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const email = String(new FormData(form).get("email") ?? "").trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
+      if (status) {
+        status.textContent = "Revisá el formato del email e intentá de nuevo.";
+        status.classList.remove("hidden");
+      }
+      return;
+    }
+
+    // TODO: reemplazar por el envío real (backend/servicio a definir)
+    console.log("Coming soon signup email:", email);
+
+    form.reset();
+    if (status) {
+      status.textContent =
+        "Listo. Te vamos a avisar apenas el sitio esté disponible.";
+      status.classList.remove("hidden");
+    }
+  });
+</script>
+
+<script>
+  import { gsap } from "../lib/gsap";
+
+  const card = document.querySelector<HTMLElement>(".cs-card");
+  const logo = document.querySelector<HTMLElement>(".cs-logo");
+  const badge = document.querySelector<HTMLElement>(".cs-badge");
+  const copy = document.querySelector<HTMLElement>(".cs-copy");
+  const formEl = document.querySelector<HTMLElement>(".cs-form");
+
+  if (card && logo && badge && copy && formEl) {
+    gsap.set(card, { autoAlpha: 0, y: 24 });
+    gsap.set([logo, badge, copy, formEl], { autoAlpha: 0, y: 16, filter: "blur(8px)" });
+
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.to(card, { autoAlpha: 1, y: 0, duration: 0.6 })
+      .to(
+        logo,
+        { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.7 },
+        "-=0.3",
+      )
+      .to(
+        badge,
+        { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.6 },
+        "-=0.4",
+      )
+      .to(
+        copy,
+        { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.6 },
+        "-=0.35",
+      )
+      .to(
+        formEl,
+        { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.6 },
+        "-=0.35",
+      );
+  }
+</script>

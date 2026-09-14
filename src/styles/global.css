@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Montserrat", system-ui, sans-serif;
+  --font-sans: "Montserrat", system-ui, sans-serif;
+
+  /* Montenegro brand colors — use as bg-mont-*, text-mont-*, border-mont-* */
+  --color-mont-dark: #1e1816;
+  --color-mont-blue: #00577f;
+  --color-mont-cream: #e2d9cf;
+  --color-mont-sand: #d3c9c2;
+  --color-mont-off-white: #f7f7f5;
+
+  /* Solid secondary-text tones — use instead of opacity modifiers (e.g. never text-mont-dark/70) */
+  --color-mont-dark-muted: #6b6763;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat-VariableFont_wght.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat-Italic-VariableFont_wght.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,243 @@
+---
+const navItems = [
+  { label: "Nosotros", href: "/#about" },
+  { label: "Alquileres", href: "/alquileres/" },
+  { label: "En venta", href: "/venta/" },
+  { label: "Contacto", href: "/#contacto" },
+];
+---
+
+<header
+  id="main-navbar"
+  class="w-full bg-mont-off-white/90 backdrop-blur-sm border-b border-mont-sand/50 fixed top-0 z-50 transition-transform duration-300"
+>
+  <nav
+    class="flex items-center justify-between px-6 md:px-10 py-4 container mx-auto"
+  >
+    <div class="flex items-center">
+      <a
+        href="/"
+        class="font-serif text-mont-dark text-lg md:text-xl tracking-tight whitespace-nowrap"
+      >
+        Administración Montenegro
+      </a>
+    </div>
+
+    <!-- Desktop nav -->
+    <div class="items-center gap-8 hidden md:flex">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            data-nav-link
+            class="text-xs text-mont-dark tracking-widest uppercase hover:opacity-60 transition-opacity"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+
+      <a
+        href="https://www.linkedin.com/company/administracion-montenegro"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+        class="text-mont-dark hover:opacity-60 transition-opacity"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+          ></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Mobile hamburger button -->
+    <button
+      id="menu-toggle"
+      class="md:hidden relative z-50 text-mont-dark p-2 -mr-2"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg
+        id="hamburger-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      >
+        <line x1="4" y1="7" x2="20" y2="7"></line>
+        <line x1="4" y1="12" x2="20" y2="12"></line>
+        <line x1="4" y1="17" x2="20" y2="17"></line>
+      </svg>
+      <svg
+        id="close-icon"
+        class="hidden"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      >
+        <line x1="5" y1="5" x2="19" y2="19"></line>
+        <line x1="19" y1="5" x2="5" y2="19"></line>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<!-- Mobile menu overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 bg-mont-off-white flex flex-col translate-x-full transition-transform duration-300 ease-in-out md:hidden"
+  aria-hidden="true"
+>
+  <div class="flex flex-col justify-center flex-1 px-10 pt-20 gap-10">
+    {
+      navItems.map((item) => (
+        <a
+          href={item.href}
+          data-nav-link
+          data-mobile-link
+          class="text-3xl text-mont-dark tracking-widest uppercase font-serif font-light hover:opacity-60 transition-opacity"
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </div>
+
+  <div class="px-10 pb-12">
+    <a
+      href="https://www.linkedin.com/company/administracion-montenegro"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-3 text-sm text-mont-dark tracking-widest uppercase hover:opacity-60 transition-opacity"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+        ></path>
+      </svg>
+      LinkedIn
+    </a>
+  </div>
+</div>
+
+<script>
+  import { getLenis } from "../lib/lenis";
+
+  // — Navbar hide/show on scroll —
+  const navbar = document.getElementById("main-navbar")!;
+  const threshold = window.innerHeight * 0.25;
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const currentScrollY = window.scrollY;
+      const scrollingDown = currentScrollY > lastScrollY;
+
+      if (currentScrollY > threshold && scrollingDown) {
+        navbar.classList.add("-translate-y-full");
+      } else if (!scrollingDown) {
+        navbar.classList.remove("-translate-y-full");
+      }
+
+      lastScrollY = currentScrollY;
+    },
+    { passive: true },
+  );
+
+  // — Mobile menu —
+  const toggle = document.getElementById("menu-toggle")!;
+  const menu = document.getElementById("mobile-menu")!;
+  const hamburgerIcon = document.getElementById("hamburger-icon")!;
+  const closeIcon = document.getElementById("close-icon")!;
+  let isMenuOpen = false;
+
+  function openMenu() {
+    isMenuOpen = true;
+    menu.classList.remove("translate-x-full");
+    menu.setAttribute("aria-hidden", "false");
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.setAttribute("aria-label", "Cerrar menú");
+    hamburgerIcon.classList.add("hidden");
+    closeIcon.classList.remove("hidden");
+    getLenis()?.stop();
+  }
+
+  function closeMenu() {
+    isMenuOpen = false;
+    menu.classList.add("translate-x-full");
+    menu.setAttribute("aria-hidden", "true");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Abrir menú");
+    hamburgerIcon.classList.remove("hidden");
+    closeIcon.classList.add("hidden");
+    getLenis()?.start();
+  }
+
+  toggle.addEventListener("click", () => {
+    isMenuOpen ? closeMenu() : openMenu();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isMenuOpen) closeMenu();
+  });
+
+  // — Smooth scroll for same-page anchor links —
+  document.querySelectorAll("[data-nav-link]").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = (link as HTMLAnchorElement).getAttribute("href") ?? "";
+
+      if (isMenuOpen) closeMenu();
+
+      const hashIndex = href.indexOf("#");
+
+      // Plain link to another page (e.g. /alquileres/) — let the browser navigate
+      if (hashIndex === -1) return;
+
+      const path = href.slice(0, hashIndex);
+
+      // Home → scroll to top
+      if (path === "/" && hashIndex === href.length - 1) {
+        if (window.location.pathname === "/") {
+          e.preventDefault();
+          getLenis()?.scrollTo(0);
+        }
+        return;
+      }
+
+      // Hash link pointing at a different page — let the browser navigate there
+      if (path !== "" && path !== window.location.pathname) return;
+
+      const hash = href.slice(hashIndex);
+      const target = document.querySelector(hash);
+      if (!target) return;
+
+      e.preventDefault();
+      getLenis()?.scrollTo(target as HTMLElement, { offset: -80 });
+    });
+  });
+</script>

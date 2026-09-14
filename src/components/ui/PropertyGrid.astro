@@ -1,0 +1,48 @@
+---
+import PropertyCard from "./PropertyCard.astro";
+import type { Property } from "../../types/property";
+
+interface Props {
+  properties: Property[];
+}
+
+const { properties } = Astro.props;
+---
+
+<div id="property-grid" class="grid grid-cols-1 md:grid-cols-3 gap-px bg-mont-sand">
+  {
+    properties.map((property) => (
+      <PropertyCard
+        tag={property.tag}
+        title={property.title}
+        description={property.description}
+        price={property.price}
+        image={property.image}
+      />
+    ))
+  }
+</div>
+
+<script>
+  import { gsap, ScrollTrigger } from "../../lib/gsap";
+
+  const cards = document.querySelectorAll("#property-grid > *");
+  gsap.set(cards, { opacity: 0, y: 40 });
+
+  const tl = gsap.timeline({ paused: true });
+  tl.to(cards, {
+    opacity: 1,
+    y: 0,
+    duration: 0.7,
+    ease: "power3.out",
+    stagger: 0.1,
+  });
+
+  ScrollTrigger.create({
+    trigger: "#property-grid",
+    start: "top 85%",
+    animation: tl,
+    scrub: false,
+    once: true,
+  });
+</script>

@@ -1,0 +1,78 @@
+---
+import SectionTitle from "../ui/SectionTitle.astro";
+import Button from "../ui/Button.astro";
+import PropertyCard from "../ui/PropertyCard.astro";
+
+const data = {
+  title: "Últimos inmuebles",
+  subtitle: "Propiedades en alquiler y venta con acompañamiento profesional en cada etapa.",
+  properties: [
+    {
+      tag: "ALQUILER",
+      title: "Departamento 2 dormitorios — Zona centro",
+      description: "82 m², luminoso, con balcón y ambientes amplios.",
+    },
+    {
+      tag: "VENTA",
+      title: "Departamento 1 dormitorio — Pichincha",
+      description: "54 m², planta funcional y excelente luz natural.",
+    },
+    {
+      tag: "VENTA",
+      title: "Semipiso 3 dormitorios — Centro",
+      description: "128 m², espacios generosos y arquitectura contemporánea.",
+    },
+  ],
+  cta: { label: "Ver todas las propiedades", href: "/#contacto" },
+};
+---
+
+<section id="inmuebles" class="bg-white py-28 md:py-36 px-6 md:px-12 lg:px-20">
+  <div class="container mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+      <SectionTitle title={data.title} subtitle={data.subtitle} />
+    </div>
+
+    <div id="inmuebles-cards" class="grid grid-cols-1 md:grid-cols-3 gap-px bg-mont-sand">
+      {
+        data.properties.map((property) => (
+          <PropertyCard
+            tag={property.tag}
+            title={property.title}
+            description={property.description}
+          />
+        ))
+      }
+    </div>
+
+    <div class="mt-12">
+      <Button href={data.cta.href} variant="solid" tone="dark">
+        {data.cta.label}
+      </Button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger } from "../../lib/gsap";
+
+  const cards = document.querySelectorAll("#inmuebles-cards > *");
+  gsap.set(cards, { opacity: 0, y: 40 });
+
+  const cardsTl = gsap.timeline({ paused: true });
+  cardsTl.to(cards, {
+    opacity: 1,
+    y: 0,
+    duration: 0.7,
+    ease: "power3.out",
+    stagger: 0.12,
+  });
+
+  ScrollTrigger.create({
+    trigger: "#inmuebles-cards",
+    start: "top 82%",
+    animation: cardsTl,
+    scrub: false,
+    once: true,
+  });
+</script>

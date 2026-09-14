@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/home/Hero.astro";
+import About from "../components/home/About.astro";
+import Hacemos from "../components/home/Hacemos.astro";
+import Servicios from "../components/home/Servicios.astro";
+import UltimosInmuebles from "../components/home/UltimosInmuebles.astro";
+import Diferenciales from "../components/home/Diferenciales.astro";
+import Contacto from "../components/home/Contacto.astro";
+import ComingSoon from "../components/ComingSoon.astro";
+
+const comingSoon = import.meta.env.COMING_SOON === "true";
+---
+
+<Layout
+  title={
+    comingSoon
+      ? "Administración Montenegro — Próximamente"
+      : "Administración Montenegro — Gestión que proyecta"
+  }
+>
+  {
+    comingSoon ? (
+      <ComingSoon />
+    ) : (
+      <>
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Hacemos />
+          <Servicios />
+          <UltimosInmuebles />
+          <Diferenciales />
+          <Contacto />
+        </main>
+      </>
+    )
+  }
+</Layout>

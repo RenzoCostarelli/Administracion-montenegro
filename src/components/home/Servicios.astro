@@ -1,0 +1,72 @@
+---
+import SectionTitle from "../ui/SectionTitle.astro";
+
+const data = {
+  title: "Claridad para gestionar. Criterio para decidir.",
+  subtitle:
+    "Una administración que ordena, informa y acompaña las decisiones del consorcio con seguimiento y responsabilidad.",
+  items: [
+    {
+      name: "Expensas claras",
+      description: "Información comprensible y ordenada.",
+    },
+    {
+      name: "Seguimiento",
+      description: "Consultas y gestiones con responsables definidos.",
+    },
+    {
+      name: "Proveedores y mantenimiento",
+      description: "Coordinación de servicios y necesidades del edificio.",
+    },
+    {
+      name: "Asambleas y documentación",
+      description: "Organización de la información y acompañamiento formal.",
+    },
+  ],
+};
+---
+
+<section id="servicios" class="bg-white py-28 md:py-36 px-6 md:px-12 lg:px-20">
+  <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24">
+    <div id="servicios-text">
+      <SectionTitle title={data.title} subtitle={data.subtitle} />
+    </div>
+
+    <div
+      id="servicios-list"
+      class="flex flex-col divide-y divide-mont-sand border-t border-mont-sand lg:pt-2"
+    >
+      {
+        data.items.map((item) => (
+          <div class="py-6 flex flex-col gap-1">
+            <h3 class="font-serif text-mont-dark text-xl">{item.name}</h3>
+            <p class="text-mont-dark-muted text-sm leading-relaxed font-sans">
+              {item.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger } from "../../lib/gsap";
+
+  gsap.set(["#servicios-text", "#servicios-list"], { opacity: 0, y: 30 });
+
+  const tl = gsap.timeline({ paused: true });
+  tl.to("#servicios-text", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }).to(
+    "#servicios-list",
+    { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+    "-=0.6",
+  );
+
+  ScrollTrigger.create({
+    trigger: "#servicios",
+    start: "top 75%",
+    animation: tl,
+    scrub: false,
+    once: true,
+  });
+</script>

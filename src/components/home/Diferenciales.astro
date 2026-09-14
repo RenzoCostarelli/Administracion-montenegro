@@ -1,0 +1,71 @@
+---
+const data = {
+  statement:
+    "Hay decisiones que resuelven el presente. Y hay decisiones que también construyen lo que viene.",
+  body: "Conocer, ordenar, anticipar y decidir con criterio. Esa es la idea detrás de una gestión que proyecta.",
+};
+---
+
+<section
+  id="diferenciales"
+  class="bg-mont-dark py-28 md:py-36 px-6 md:px-12 lg:px-20"
+>
+  <div class="container mx-auto flex flex-col gap-8">
+    <h2
+      id="diferenciales-statement"
+      class="font-serif font-light text-mont-cream leading-tight tracking-tight text-3xl md:text-4xl lg:text-5xl"
+    >
+      {data.statement}
+    </h2>
+    <p
+      id="diferenciales-body"
+      class="text-mont-sand text-base md:text-lg leading-relaxed font-sans max-w-2xl"
+    >
+      {data.body}
+    </p>
+    <img
+      id="diferenciales-image"
+      src="https://getjoan.com/wp-content/uploads/2026/01/real-estate-office-setup_body-1024x512.jpg"
+      alt=""
+      class="w-full h-auto rounded-2xl object-cover mt-4"
+    />
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger } from "../../lib/gsap";
+
+  gsap.set(
+    ["#diferenciales-statement", "#diferenciales-body", "#diferenciales-image"],
+    {
+      opacity: 0,
+      y: 30,
+    },
+  );
+
+  const tl = gsap.timeline({ paused: true });
+  tl.to("#diferenciales-statement", {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    ease: "power3.out",
+  })
+    .to(
+      "#diferenciales-body",
+      { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+      "-=0.5",
+    )
+    .to(
+      "#diferenciales-image",
+      { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+      "-=0.4",
+    );
+
+  ScrollTrigger.create({
+    trigger: "#diferenciales",
+    start: "top 75%",
+    animation: tl,
+    scrub: false,
+    once: true,
+  });
+</script>

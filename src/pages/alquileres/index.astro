@@ -1,0 +1,65 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import PageHeader from "../../components/ui/PageHeader.astro";
+import PropertyGrid from "../../components/ui/PropertyGrid.astro";
+import Contacto from "../../components/home/Contacto.astro";
+import type { Property } from "../../types/property";
+
+const properties: Property[] = [
+  {
+    tag: "ALQUILER",
+    title: "Monoambiente — Zona Universidad",
+    description: "32 m², amoblado, cocina integrada, ideal para estudiantes.",
+    price: "$290.000/mes",
+  },
+  {
+    tag: "ALQUILER",
+    title: "Departamento 1 dormitorio — Pichincha",
+    description: "45 m², balcón terraza, cocina integrada, apto profesional.",
+    price: "$380.000/mes",
+  },
+  {
+    tag: "ALQUILER",
+    title: "PH 2 dormitorios — Echesortu",
+    description: "72 m², patio con parrilla, muy luminoso, dos ambientes.",
+    price: "$480.000/mes",
+  },
+  {
+    tag: "ALQUILER",
+    title: "Departamento 2 dormitorios — Zona Centro",
+    description: "68 m², a metros de Av. Pellegrini, cochera opcional.",
+    price: "$520.000/mes",
+  },
+  {
+    tag: "ALQUILER",
+    title: "Local comercial — Zona Centro",
+    description: "60 m², frente a la calle, vidriera amplia, alto tránsito.",
+    price: "$550.000/mes",
+  },
+  {
+    tag: "ALQUILER",
+    title: "Departamento 3 dormitorios — Fisherton",
+    description: "95 m², patio propio, dos baños, apto crédito.",
+    price: "$650.000/mes",
+  },
+];
+---
+
+<Layout title="Alquileres — Administración Montenegro">
+  <Navbar />
+  <main>
+    <PageHeader
+      title="Alquileres"
+      subtitle="Unidades disponibles con información clara y acompañamiento en cada etapa del proceso."
+    />
+
+    <section class="bg-white py-28 md:py-36 px-6 md:px-12 lg:px-20">
+      <div class="container mx-auto">
+        <PropertyGrid properties={properties} />
+      </div>
+    </section>
+
+    <Contacto />
+  </main>
+</Layout>

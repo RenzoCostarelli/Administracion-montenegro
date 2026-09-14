@@ -1,0 +1,46 @@
+---
+interface Props {
+  href?: string;
+  type?: "button" | "submit";
+  variant?: "solid" | "outline";
+  tone?: "dark" | "light" | "accent";
+  class?: string;
+}
+
+const {
+  href,
+  type = "button",
+  variant = "solid",
+  tone = "dark",
+  class: className = "",
+} = Astro.props;
+
+const base =
+  "inline-flex items-center justify-center gap-3 text-xs tracking-[0.2em] uppercase px-8 py-4 rounded-full transition-colors duration-300 font-sans";
+
+const variants = {
+  "solid-dark": "bg-mont-dark text-mont-cream hover:bg-mont-dark/85",
+  "solid-accent": "bg-mont-blue text-neutral-50 hover:bg-mont-accent/85",
+  "solid-light": "bg-mont-cream text-mont-dark hover:bg-mont-cream/85",
+  "outline-dark":
+    "border border-mont-dark/40 text-mont-dark hover:bg-mont-dark hover:text-mont-cream",
+  "outline-light":
+    "border border-mont-cream/40 text-mont-cream hover:bg-mont-cream hover:text-mont-dark",
+  "outline-accent":
+    "border border-mont-accent/40 text-mont-accent hover:bg-mont-accent hover:text-mont-cream",
+};
+
+const classes = `${base} ${variants[`${variant}-${tone}`]} ${className}`;
+---
+
+{
+  href ? (
+    <a href={href} class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes}>
+      <slot />
+    </button>
+  )
+}
