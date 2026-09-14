@@ -5,49 +5,79 @@ import PropertyCard from "../ui/PropertyCard.astro";
 
 const data = {
   title: "Últimos inmuebles",
-  subtitle: "Propiedades en alquiler y venta con acompañamiento profesional en cada etapa.",
+  subtitle:
+    "Propiedades en alquiler y venta con acompañamiento profesional en cada etapa.",
   properties: [
     {
       tag: "ALQUILER",
       title: "Departamento 2 dormitorios — Zona centro",
       description: "82 m², luminoso, con balcón y ambientes amplios.",
+      url: "https://www.zonaprop.com.ar/",
+      images: [
+        "/images/properties/living-room-1.jpg",
+        "/images/properties/kitchen-4.jpg",
+        "/images/properties/kitchen-3.jpg",
+      ],
     },
     {
       tag: "VENTA",
       title: "Departamento 1 dormitorio — Pichincha",
       description: "54 m², planta funcional y excelente luz natural.",
+      url: "https://www.zonaprop.com.ar/",
+      images: [
+        "/images/properties/kitchen-2.jpg",
+        "/images/properties/bedroom-1.jpg",
+        "/images/properties/exterior-1.jpg",
+      ],
     },
     {
       tag: "VENTA",
       title: "Semipiso 3 dormitorios — Centro",
       description: "128 m², espacios generosos y arquitectura contemporánea.",
+      url: "https://www.zonaprop.com.ar/",
+      images: [
+        "/images/properties/bedroom-2.jpg",
+        "/images/properties/kitchen-1.jpg",
+        "/images/properties/kitchen-5.jpg",
+      ],
     },
   ],
-  cta: { label: "Ver todas las propiedades", href: "/#contacto" },
+  cta: { label: "En venta", href: "/venta" },
+  cta2: { label: "En alquiler", href: "/alquileres" },
 };
 ---
 
 <section id="inmuebles" class="bg-white py-28 md:py-36 px-6 md:px-12 lg:px-20">
   <div class="container mx-auto">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+    <div
+      class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14"
+    >
       <SectionTitle title={data.title} subtitle={data.subtitle} />
     </div>
 
-    <div id="inmuebles-cards" class="grid grid-cols-1 md:grid-cols-3 gap-px bg-mont-sand">
+    <div
+      id="inmuebles-cards"
+      class="grid grid-cols-1 md:grid-cols-3 gap-px bg-mont-sand"
+    >
       {
         data.properties.map((property) => (
           <PropertyCard
             tag={property.tag}
             title={property.title}
             description={property.description}
+            url={property.url}
+            images={property.images}
           />
         ))
       }
     </div>
 
-    <div class="mt-12">
+    <div class="mt-12 space-x-2">
       <Button href={data.cta.href} variant="solid" tone="dark">
         {data.cta.label}
+      </Button>
+      <Button href={data.cta2.href} variant="solid" tone="dark">
+        {data.cta2.label}
       </Button>
     </div>
   </div>

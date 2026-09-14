@@ -61,8 +61,8 @@ const data = {
           <div class="hacemos-step relative pl-8 md:pl-10 flex flex-col sm:flex-row gap-6 sm:items-center">
             <span class="absolute left-0 bottom-0 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-mont-sand" />
             <div class="w-20 h-20 md:w-24 md:h-24 shrink-0 bg-mont-cream/10 border border-mont-cream/20 relative overflow-hidden">
-              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                {/* <svg
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none text-neutral-50">
+                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="28"
                   height="28"
@@ -77,7 +77,7 @@ const data = {
                   <path d="M3 21h18" />
                   <path d="M5 21V7l8-4v18" />
                   <path d="M19 21V11l-6-4" />
-                </svg> */}
+                </svg>
               </div>
               <img
                 src={`/images/hacemos-${step.number}.jpg`}
@@ -104,7 +104,12 @@ const data = {
     </div>
 
     <div id="hacemos-cta">
-      <Button href={data.cta.href} variant="solid" tone="light">
+      <Button
+        href={data.cta.href}
+        variant="solid"
+        tone="light"
+        id="hacemos-cta-button"
+      >
         {data.cta.label}
       </Button>
     </div>
@@ -113,10 +118,12 @@ const data = {
 
 <script>
   import { gsap, ScrollTrigger } from "../../lib/gsap";
+  import { getLenis } from "../../lib/lenis";
 
   gsap.set(["#hacemos-text", "#hacemos-cta"], { opacity: 0, y: 30 });
   gsap.set(".hacemos-step", { opacity: 0, y: 30 });
   gsap.set("#hacemos-line-fill", { scaleY: 0 });
+  const cta = document.getElementById("hacemos-cta-button")!;
 
   const tl = gsap.timeline({ paused: true });
   tl.to("#hacemos-text", {
@@ -150,8 +157,21 @@ const data = {
   ScrollTrigger.create({
     trigger: "#hacemos-steps",
     start: "top 80%",
-    end: "bottom center",
+    end: "bottom 80%",
+    // markers: true,
     animation: lineTl,
     scrub: true,
+  });
+
+  cta.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href") ?? "";
+      const hash = href.includes("#") ? href.split("#")[1] : null;
+      if (!hash) return;
+      const target = document.getElementById(hash);
+      if (!target) return;
+      e.preventDefault();
+      getLenis()?.scrollTo(target, { offset: -80 });
+    });
   });
 </script>
