@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import PageHeader from "../../components/ui/PageHeader.astro";
+import Contacto from "../../components/home/Contacto.astro";
+import { getClientes } from "../../lib/getClientes";
+import { getHomepage } from "../../lib/getHomepage";
+
+const [clientes, homepage] = await Promise.all([getClientes(), getHomepage()]);
+---
+
+<Layout title="Clientes — Administración Montenegro">
+  <Navbar />
+  <main>
+    <PageHeader
+      title="Clientes"
+      subtitle="Consorcios que confían su administración a Montenegro."
+    />
+
+    <section class="bg-white py-14 md:py-24 px-6 md:px-12 lg:px-20">
+      <div class="container mx-auto">
+        <ul class="grid grid-cols-2 md:grid-cols-3">
+          {
+            clientes.nombres.map((nombre) => (
+              <li class="py-3 border-b border-mont-sand/50 text-mont-dark font-sans text-sm md:text-lg">
+                {nombre}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <Contacto data={homepage.contacto} />
+  </main>
+</Layout>

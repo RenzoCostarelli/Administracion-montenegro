@@ -121,3 +121,14 @@ export type ManifiestoDocument = PrismicDocument<
   },
   "manifiesto"
 >;
+
+type ClientesDocumentDataClientesItem = {
+  nombre: KeyTextField;
+};
+
+export type ClientesDocument = PrismicDocument<
+  {
+    clientes: GroupField<ClientesDocumentDataClientesItem>;
+  },
+  "clientes"
+>;

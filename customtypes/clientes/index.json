@@ -1,0 +1,13 @@
+{
+  "Main": {
+    "clientes": {
+      "type": "Group",
+      "config": {
+        "label": "Clientes",
+        "fields": {
+          "nombre": { "type": "Text", "config": { "label": "Nombre" } }
+        }
+      }
+    }
+  }
+}
