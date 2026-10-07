@@ -22,10 +22,7 @@ const ctaAlquilerHref = asLink(data.ctaAlquiler.link) ?? "/alquileres";
       <SectionTitle title={data.titulo} subtitle={data.subtitulo} />
     </div>
 
-    <div
-      id="inmuebles-cards"
-      class="grid grid-cols-1 md:grid-cols-3 gap-1 bg-mont-sand"
-    >
+    <div id="inmuebles-cards" class="grid grid-cols-1 md:grid-cols-3 gap-1">
       {
         data.propiedadesDestacadas.map((propiedad) => (
           <PropertyCard propiedad={propiedad} />

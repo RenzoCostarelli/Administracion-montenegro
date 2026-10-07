@@ -9,7 +9,7 @@ interface Props {
 const { properties } = Astro.props;
 ---
 
-<div id="property-grid" class="grid grid-cols-1 md:grid-cols-3 gap-px">
+<div id="property-grid" class="grid grid-cols-1 md:grid-cols-3 gap-1">
   {properties.map((propiedad) => <PropertyCard propiedad={propiedad} />)}
 </div>
 
