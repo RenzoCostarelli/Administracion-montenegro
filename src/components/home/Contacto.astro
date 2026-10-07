@@ -1,13 +1,13 @@
 ---
 import Button from "../ui/Button.astro";
+import PrismicRichText from "../PrismicRichText.astro";
+import type { HomepageContacto } from "../../types/homepage";
 
-const data = {
-  title: "¿Hablamos?",
-  text: "Administración de consorcios, cambio de administrador, alquiler, venta o tasación.",
-  email: "oficinaadmmontenegro@gmail.com",
-  phone: "341-5278291",
-  address: "Jujuy 2502, Rosario",
-};
+interface Props {
+  data: HomepageContacto;
+}
+
+const { data } = Astro.props;
 ---
 
 <section
@@ -22,13 +22,12 @@ const data = {
           <h2
             class="font-serif font-light text-mont-cream text-5xl md:text-6xl leading-none tracking-tight"
           >
-            {data.title}
+            {data.titulo}
           </h2>
-          <p
+          <PrismicRichText
+            field={data.texto}
             class="text-mont-sand text-base md:text-lg leading-relaxed font-sans max-w-md"
-          >
-            {data.text}
-          </p>
+          />
         </div>
 
         <form id="contact-form" class="flex flex-col gap-5 max-w-md" novalidate>
@@ -114,7 +113,7 @@ const data = {
           </a>
 
           <a
-            href={`tel:${data.phone.replace(/[^0-9+]/g, "")}`}
+            href={`tel:${data.telefono.replace(/[^0-9+]/g, "")}`}
             class="group flex items-center justify-between py-6 hover:opacity-70 transition-opacity"
           >
             <div class="flex flex-col gap-1">
@@ -122,7 +121,7 @@ const data = {
                 class="text-mont-sand text-xs tracking-[0.2em] uppercase font-sans"
                 >Teléfono</span
               >
-              <span class="text-mont-cream text-lg font-sans">{data.phone}</span
+              <span class="text-mont-cream text-lg font-sans">{data.telefono}</span
               >
             </div>
           </a>
@@ -134,7 +133,7 @@ const data = {
                 >Dirección</span
               >
               <span class="text-mont-cream text-lg font-sans"
-                >{data.address}</span
+                >{data.direccion}</span
               >
             </div>
           </div>

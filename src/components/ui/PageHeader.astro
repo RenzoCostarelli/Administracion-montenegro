@@ -1,7 +1,7 @@
 ---
 interface Props {
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
 const { title, subtitle } = Astro.props;
@@ -16,7 +16,10 @@ const { title, subtitle } = Astro.props;
   >
   </div>
 
-  <div id="page-header-content" class="relative z-10 container mx-auto flex flex-col gap-6">
+  <div
+    id="page-header-content"
+    class="relative z-10 container mx-auto flex flex-col gap-6"
+  >
     <a
       href="/"
       data-nav-link
@@ -29,7 +32,9 @@ const { title, subtitle } = Astro.props;
     >
       {title}
     </h1>
-    <p class="text-mont-sand text-base md:text-lg leading-relaxed font-sans max-w-2xl">
+    <p
+      class="text-mont-sand text-base md:text-lg leading-relaxed font-sans max-w-2xl"
+    >
       {subtitle}
     </p>
   </div>

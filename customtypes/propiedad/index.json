@@ -1,0 +1,80 @@
+{
+  "Main": {
+    "titulo": {
+      "type": "Text",
+      "config": { "label": "Título" }
+    },
+    "ubicacion": {
+      "type": "Text",
+      "config": { "label": "Ubicación" }
+    },
+    "tipo_propiedad": {
+      "type": "Text",
+      "config": { "label": "Tipo de propiedad" }
+    },
+    "descripcion": {
+      "type": "StructuredText",
+      "config": {
+        "label": "Descripción",
+        "multi": "paragraph,strong,em"
+      }
+    },
+    "caracteristicas": {
+      "type": "Group",
+      "config": {
+        "label": "Características principales",
+        "fields": {
+          "item": { "type": "Text", "config": { "label": "Característica" } }
+        }
+      }
+    },
+    "condiciones_comerciales": {
+      "type": "Group",
+      "config": {
+        "label": "Condiciones comerciales",
+        "fields": {
+          "item": { "type": "Text", "config": { "label": "Condición" } }
+        }
+      }
+    },
+    "disponible_alquiler": {
+      "type": "Boolean",
+      "config": {
+        "label": "Disponible en alquiler",
+        "default_value": false,
+        "placeholder_true": "Sí",
+        "placeholder_false": "No"
+      }
+    },
+    "precio_alquiler": {
+      "type": "Text",
+      "config": { "label": "Precio de alquiler" }
+    },
+    "disponible_venta": {
+      "type": "Boolean",
+      "config": {
+        "label": "Disponible en venta",
+        "default_value": false,
+        "placeholder_true": "Sí",
+        "placeholder_false": "No"
+      }
+    },
+    "precio_venta": {
+      "type": "Text",
+      "config": { "label": "Precio de venta" }
+    },
+    "imagenes": {
+      "type": "Group",
+      "config": {
+        "label": "Imágenes",
+        "fields": {
+          "imagen": { "type": "Image", "config": { "label": "Imagen", "constraint": {}, "thumbnails": [] } }
+        }
+      }
+    },
+    "url_externa": {
+      "type": "Link",
+      "config": { "label": "Link externo (ej. Zonaprop)", "select": "web", "allowTargetBlank": true }
+    }
+  }
+}

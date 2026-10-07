@@ -23,13 +23,14 @@ astro dev logs        # View server logs
 
 Astro 7 static site with Prismic as headless CMS, Tailwind CSS v4, GSAP animations, and Lenis smooth scrolling.
 
-**Data flow**: Prismic CMS → `src/lib/getHomepage.ts` / `src/lib/getManifiesto.ts` → typed interfaces in `src/types/` → Astro page components → section components.
+**Data flow**: Prismic CMS → `src/lib/getHomepage.ts` / `src/lib/getPropiedades.ts` → typed interfaces in `src/types/` → Astro page components → section components.
 
-All CMS content lives in two Prismic documents fetched at build time: `homapage` (note the typo — this is the actual document type name in Prismic) and `manifiesto`.
+Prismic has two custom types: `homepage` (singleton, one tab per home section — see below) and `propiedad` (repeatable, powers `/alquileres/` and `/venta/`). Their field models are versioned at `customtypes/homepage/index.json` and `customtypes/propiedad/index.json` — paste that JSON into the Custom Type Builder's JSON editor in the Prismic dashboard to create/update them (the Prismic MCP can read and populate documents, but cannot create custom types itself). There's also a `manifiesto` singleton (`src/lib/getManifiesto.ts`, `src/types/manifiesto.ts`) with a single Rich Text field, but no page currently renders it — it's unused scaffolding.
 
 **Pages** (file-based routing):
 - `/` → `src/pages/index.astro`
-- `/manifiesto/` → `src/pages/manifiesto/index.astro`
+- `/alquileres/` → `src/pages/alquileres/index.astro` — `propiedad` documents with `disponible_alquiler: true`
+- `/venta/` → `src/pages/venta/index.astro` — `propiedad` documents with `disponible_venta: true`
 
 **Styling**: Tailwind CSS v4 is integrated via `@tailwindcss/vite` (not the PostCSS plugin). Custom fonts and CSS variables are defined in `src/styles/global.css`.
 
@@ -121,16 +122,23 @@ Real estate. Core message: "Conocer más para decidir mejor."
 
 ### Home page section structure
 
-| Component | Section ID | Background |
-|---|---|---|
-| `home/Hero.astro` | `#hero` | `mont-dark` |
-| `home/TeSuena.astro` | `#te-suena` | `mont-off-white` |
-| `home/Hacemos.astro` | `#hacemos` | `mont-blue` |
-| `home/Servicios.astro` | `#servicios` | white |
-| `home/Inmobiliaria.astro` | `#inmobiliaria` | `mont-off-white` |
-| `home/Diferenciales.astro` | `#diferenciales` | `mont-dark` |
-| `home/Somos.astro` | `#somos` | `mont-off-white` |
-| `home/Contacto.astro` | `#contacto` | `mont-dark` |
+Each row is also a tab in the `homepage` custom type (field IDs are prefixed by tab, e.g. `hero_titulo`, `hacemos_pasos` — see `customtypes/homepage/index.json`).
+
+| Component | Section ID | Background | Prismic tab |
+|---|---|---|---|
+| `home/Hero.astro` | `#hero` | `mont-dark` | Hero |
+| `home/About.astro` | `#about` | `mont-off-white` | Dos areas |
+| `home/Hacemos.astro` | `#hacemos` | `mont-blue` | Hacemos |
+| `home/Servicios.astro` | `#servicios` | white | Servicios |
+| `home/UltimosInmuebles.astro` | `#inmuebles` | white | Inmuebles |
+| `home/Diferenciales.astro` | `#diferenciales` | `mont-dark` | Diferenciales |
+| `home/Contacto.astro` | `#contacto` | `mont-blue` | Contacto |
+
+`home/UltimosInmuebles.astro` renders a hand-picked list of `propiedad` documents (content relationship group `inmuebles_destacadas`), not an automatic "latest" query — the client chooses which listings feature on the home page.
+
+### Propiedades (listings)
+
+A `propiedad` can be for rent, for sale, or both at once — modeled as two independent booleans (`disponible_alquiler`, `disponible_venta`), each with its own free-text price field (`precio_alquiler`, `precio_venta`), since real listings mix currencies, financing notes, and "/mes" suffixes that don't fit a structured number. There's deliberately no `ambientes`/`m²`/`cochera`/etc. as separate fields and no internal detail page (no UID) — all of that detail (location, características, condiciones comerciales) lives in the single `descripcion` Rich Text field as headings/bullets, matching how the client already writes their listings. `url_externa` is optional; `PropertyCard.astro` only makes the card clickable when it's set.
 
 ### Color palette (Tailwind tokens with `mont-` prefix)
 
@@ -158,7 +166,7 @@ Tokens defined in `src/styles/global.css` via `@theme { --color-mont-*: ... }`. 
 
 ### Visual design direction
 
-- **Section rhythm (alternating for impact):** Dark → Cream → Blue → White → Cream → Dark → Cream → Dark
+- **Section rhythm (alternating for impact):** Dark → Cream → Blue → White → White → Dark → Blue
 - Large serif headlines, tight tracking, generous whitespace
 - GSAP: SplitText word reveals, fade+blur entrances, scrub-based exits
 - Warmth through cream/warm dark tones — no cold pure whites or blues

@@ -1,22 +1,12 @@
 ---
-const data = {
-  title: "Una marca. Dos áreas.\nUna misma forma de trabajar.",
-  body: "Hay decisiones que resuelven el presente. Y hay decisiones que también construyen lo que viene. Conocer, ordenar, anticipar y decidir con criterio: esa es la idea detrás de una gestión que proyecta.",
-  areas: [
-    {
-      name: "Administración de consorcios",
-      tagline: "Cada peso, explicado.",
-      description:
-        "Expensas que se entienden, gastos respaldados y una gestión que hace visible qué pasa, por qué y cómo se resuelve.",
-    },
-    {
-      name: "Montenegro Inmobiliaria",
-      tagline: "Conocer más para decidir mejor.",
-      description:
-        "Alquiler, venta y tasación con acompañamiento profesional y una experiencia simple en cada etapa.",
-    },
-  ],
-};
+import PrismicRichText from "../PrismicRichText.astro";
+import type { HomepageDosAreas } from "../../types/homepage";
+
+interface Props {
+  data: HomepageDosAreas;
+}
+
+const { data } = Astro.props;
 ---
 
 <section
@@ -29,50 +19,53 @@ const data = {
     <!-- Image -->
     <div
       id="about-image"
-      class="aspect-[4/5] bg-mont-sand/50 relative overflow-hidden order-2 lg:order-1"
+      class="aspect-4/5 bg-mont-sand/50 relative overflow-hidden order-2 lg:order-1"
     >
-      <div
-        class="absolute inset-0 flex items-center justify-center pointer-events-none"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="48"
-          height="48"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="text-mont-sand"
-        >
-          <path d="M3 21h18"></path>
-          <path d="M5 21V7l8-4v18"></path>
-          <path d="M19 21V11l-6-4"></path>
-        </svg>
-      </div>
-      <!-- Photo — drop a file at public/images/about.jpg to replace this placeholder -->
-      <img
-        src="/images/about.jpg"
-        alt="Equipo de Administración Montenegro"
-        class="absolute inset-0 w-full h-full object-cover"
-        loading="lazy"
-        onerror="this.remove()"
-      />
+      {
+        !data.imagen.url && (
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-mont-sand"
+            >
+              <path d="M3 21h18" />
+              <path d="M5 21V7l8-4v18" />
+              <path d="M19 21V11l-6-4" />
+            </svg>
+          </div>
+        )
+      }
+      {
+        data.imagen.url && (
+          <img
+            src={data.imagen.url}
+            alt={data.imagen.alt ?? ""}
+            class="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+          />
+        )
+      }
     </div>
 
     <!-- Text -->
     <div id="about-text" class="flex flex-col gap-8 order-1 lg:order-2">
       <h2
-        class="font-serif font-semibold text-mont-dark text-balance leading-none tracking-tight text-3xl md:text-4xl whitespace-pre-line"
+        class="font-serif font-semibold text-mont-dark text-balance leading-none tracking-tight text-3xl md:text-4xl"
       >
-        {data.title}
+        {data.tituloLinea1}<br />{data.tituloLinea2}
       </h2>
-      <p
+      <PrismicRichText
+        field={data.texto}
         class="text-mont-dark-muted text-base md:text-lg leading-relaxed font-sans max-w-md"
-      >
-        {data.body}
-      </p>
+      />
 
       <div
         class="flex flex-col divide-y divide-mont-sand border-t border-mont-sand mt-2"
@@ -81,14 +74,15 @@ const data = {
           data.areas.map((area) => (
             <div class="py-6 flex flex-col gap-1">
               <div class="flex items-baseline justify-between gap-4">
-                <h3 class="font-serif text-mont-dark text-xl">{area.name}</h3>
+                <h3 class="font-serif text-mont-dark text-xl">{area.nombre}</h3>
               </div>
               <p class="font-serif italic text-mont-dark text-base leading-snug">
                 {area.tagline}
               </p>
-              <p class="text-mont-dark-muted text-sm leading-relaxed font-sans">
-                {area.description}
-              </p>
+              <PrismicRichText
+                field={area.descripcion}
+                class="text-mont-dark-muted text-sm leading-relaxed font-sans"
+              />
             </div>
           ))
         }

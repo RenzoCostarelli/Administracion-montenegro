@@ -1,11 +1,12 @@
 ---
-const data = {
-  statement: {
-    line1: "Hay decisiones que resuelven el presente.",
-    line2: "Y hay decisiones que también construyen lo que viene.",
-  },
-  body: "Conocer, ordenar, anticipar y decidir con criterio. Esa es la idea detrás de una gestión que proyecta.",
-};
+import PrismicRichText from "../PrismicRichText.astro";
+import type { HomepageDiferenciales } from "../../types/homepage";
+
+interface Props {
+  data: HomepageDiferenciales;
+}
+
+const { data } = Astro.props;
 ---
 
 <section
@@ -17,20 +18,24 @@ const data = {
       id="diferenciales-statement"
       class="font-serif font-semibold text-mont-cream text-pretty tracking-tight text-2xl md:text-3xl lg:text-4xl"
     >
-      {data.statement.line1}<br />{data.statement.line2}
+      {data.tituloLinea1}<br />{data.tituloLinea2}
     </h2>
-    <p
-      id="diferenciales-body"
-      class="text-mont-sand text-base md:text-lg leading-relaxed text-balance font-sans max-w-2xl"
-    >
-      {data.body}
-    </p>
-    <img
-      id="diferenciales-image"
-      src="https://getjoan.com/wp-content/uploads/2026/01/real-estate-office-setup_body-1024x512.jpg"
-      alt=""
-      class="w-full h-auto rounded-2xl object-cover mt-4"
-    />
+    <div id="diferenciales-body">
+      <PrismicRichText
+        field={data.texto}
+        class="text-mont-sand text-base md:text-lg leading-relaxed text-balance font-sans max-w-2xl"
+      />
+    </div>
+    {
+      data.imagen.url && (
+        <img
+          id="diferenciales-image"
+          src={data.imagen.url}
+          alt={data.imagen.alt ?? ""}
+          class="w-full h-auto rounded-2xl object-cover mt-4"
+        />
+      )
+    }
   </div>
 </section>
 

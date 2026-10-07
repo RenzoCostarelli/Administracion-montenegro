@@ -1,37 +1,40 @@
 ---
+import { asLink } from "@prismicio/client";
 import Button from "../ui/Button.astro";
+import PrismicRichText from "../PrismicRichText.astro";
+import type { HomepageHero } from "../../types/homepage";
 
-const data = {
-  headline: ["Gestión que proyecta."],
-  text: "Administramos consorcios y acompañamos decisiones inmobiliarias con información clara, seguimiento, experiencia y criterio.",
-  ctaPrimary: { label: "Conocer servicios", href: "/#about" },
-  ctaSecondary: { label: "Hablemos", href: "/#contacto" },
-  philosophyTitle: ["Gestionar el presente.", "Proyectar lo que viene."],
-  philosophyBody:
-    "Claridad para gestionar. Información para decidir. Experiencia para proyectar.",
-};
+interface Props {
+  data: HomepageHero;
+}
+
+const { data } = Astro.props;
+const videoUrl = asLink(data.videoFondo);
+const ctaPrincipalHref = asLink(data.ctaPrincipal.link) ?? "#";
+const ctaSecundarioHref = asLink(data.ctaSecundario.link) ?? "#";
 ---
 
 <section
   id="hero"
   class="relative bg-mont-dark pt-42 pb-20 md:pt-64 md:pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
 >
-  <video
-    id="hero-video"
-    class="absolute inset-0 w-full h-full object-cover"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-  >
-    <source
-      src="https://res.cloudinary.com/dztzomvin/video/upload/v1789404592/17725088_xjr2e1.mp4"
-      type="video/mp4"
-    />
-  </video>
+  {
+    videoUrl && (
+      <video
+        id="hero-video"
+        class="absolute inset-0 w-full h-full object-cover object-top"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      >
+        <source src={videoUrl} type="video/mp4" />
+      </video>
+    )
+  }
   <div
-    class="absolute inset-0 bg-linear-to-t from-neutral-900/70 to-transparent pointer-events-none"
+    class="absolute inset-0 bg-linear-to-r from-neutral-900/70 to-transparent pointer-events-none"
   >
   </div>
 
@@ -45,28 +48,25 @@ const data = {
     class="px-6 md:px-10 relative z-10 container mx-auto flex-col justify-start gap-8"
   >
     <div id="hero-title" class="overflow-hidden">
-      {
-        data.headline.map((line) => (
-          <h1 class="block font-serif font-semibold pb-2 text-mont-cream leading-none tracking-tight text-[12vw] md:text-[5vw] lg:text-[4.5vw] 2xl:text-[2.5vw]">
-            {line}
-          </h1>
-        ))
-      }
+      <h1
+        class="block font-serif font-semibold pb-2 text-mont-cream leading-none tracking-tight text-[12vw] md:text-[5vw] lg:text-[4.5vw] 2xl:text-[2.5vw]"
+      >
+        {data.titulo}
+      </h1>
     </div>
 
     <div id="hero-body" class="flex flex-col gap-8 max-w-2xl">
-      <p
+      <PrismicRichText
+        field={data.texto}
         class="text-mont-sand text-balance text-base md:text-lg leading-relaxed font-sans"
-      >
-        {data.text}
-      </p>
+      />
 
       <div id="hero-cta" class="flex flex-wrap gap-4">
-        <Button href={data.ctaPrimary.href} variant="solid" tone="accent">
-          {data.ctaPrimary.label}
+        <Button href={ctaPrincipalHref} variant="solid" tone="accent">
+          {data.ctaPrincipal.label}
         </Button>
-        <Button href={data.ctaSecondary.href} variant="outline" tone="light">
-          {data.ctaSecondary.label}
+        <Button href={ctaSecundarioHref} variant="outline" tone="light">
+          {data.ctaSecundario.label}
         </Button>
       </div>
     </div>
@@ -79,18 +79,22 @@ const data = {
     class="container mx-auto flex flex-col justify-start gap-8"
   >
     <div class="flex flex-col gap-1">
-      {
-        data.philosophyTitle.map((line) => (
-          <p class="font-serif font-semibold text-white leading-none tracking-tight text-3xl md:text-4xl">
-            {line}
-          </p>
-        ))
-      }
+      <p
+        class="font-serif font-semibold text-white leading-none tracking-tight text-3xl md:text-4xl"
+      >
+        {data.filosofiaLinea1}
+      </p>
+      <p
+        class="font-serif font-semibold text-white leading-none tracking-tight text-3xl md:text-4xl"
+      >
+        {data.filosofiaLinea2}
+      </p>
     </div>
 
-    <p class="text-white text-base md:text-lg leading-relaxed font-sans pt-6">
-      {data.philosophyBody}
-    </p>
+    <PrismicRichText
+      field={data.filosofiaTexto}
+      class="text-white text-base md:text-lg leading-relaxed font-sans pt-6"
+    />
   </div>
 </section>
 

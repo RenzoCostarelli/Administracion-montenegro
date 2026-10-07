@@ -1,97 +1,91 @@
 import type { RichTextField, ImageField, LinkField } from "@prismicio/client";
+import type { Propiedad } from "./property";
 
 export type { RichTextField, ImageField };
 
+export interface HomepageCta {
+  label: string;
+  link: LinkField;
+}
+
 export interface HomepageHero {
-  shortText: RichTextField;
-  title: RichTextField;
-  text: RichTextField;
-  backgroundImage: ImageField;
-  bgVideo: LinkField;
-  ctaText: string;
-}
-
-export interface HomepageTeSuenaCard {
-  titleLine1: string;
-  titleLine2: string;
-  text: RichTextField;
-}
-
-export interface HomepageTeSuena {
-  title: string;
-  cards: HomepageTeSuenaCard[];
-  endPhrase1: RichTextField;
-  endPhrase2: RichTextField;
-}
-
-export interface HomepageHacemosItem {
   titulo: string;
-  description: RichTextField;
+  texto: RichTextField;
+  videoFondo: LinkField;
+  ctaPrincipal: HomepageCta;
+  ctaSecundario: HomepageCta;
+  filosofiaLinea1: string;
+  filosofiaLinea2: string;
+  filosofiaTexto: RichTextField;
+}
+
+export interface HomepageDosAreasItem {
+  nombre: string;
+  tagline: string;
+  descripcion: RichTextField;
+}
+
+export interface HomepageDosAreas {
+  tituloLinea1: string;
+  tituloLinea2: string;
+  texto: RichTextField;
+  imagen: ImageField;
+  areas: HomepageDosAreasItem[];
+}
+
+export interface HomepageHacemosPaso {
+  nombre: string;
+  descripcion: RichTextField;
+  imagen: ImageField;
 }
 
 export interface HomepageHacemos {
-  label: string;
-  title: string;
-  subtitle: string;
-  items: HomepageHacemosItem[];
-  endText: RichTextField;
+  titulo: string;
+  subtitulo: string;
+  pasos: HomepageHacemosPaso[];
+  cta: HomepageCta;
 }
 
-export interface HomepageServiciosLine {
-  title: string;
-  description: string;
-  text: RichTextField;
+export interface HomepageServiciosItem {
+  nombre: string;
+  descripcion: RichTextField;
 }
 
 export interface HomepageServicios {
-  label: string;
-  title: string;
-  lines: HomepageServiciosLine[];
+  titulo: string;
+  subtitulo: string;
+  items: HomepageServiciosItem[];
+}
+
+export interface HomepageInmuebles {
+  titulo: string;
+  subtitulo: string;
+  propiedadesDestacadas: Propiedad[];
+  ctaVenta: HomepageCta;
+  ctaAlquiler: HomepageCta;
 }
 
 export interface HomepageDiferenciales {
-  label: string;
-  title: string;
-  subtitle: string;
-  inText: RichTextField;
-  outText: RichTextField;
-}
-
-export interface HomepageSomosProfile {
-  photo: ImageField;
-  title: string;
-  name: string;
-  position: string;
-  phone: string;
-  text: RichTextField;
-}
-
-export interface HomepageSomos {
-  label: string;
-  title: string;
-  subtitle: string;
-  profiles: HomepageSomosProfile[];
-  closing: RichTextField;
-}
-
-export interface HomepageContactoDataItem {
-  name: string;
-  position: string;
-  phone: string;
+  tituloLinea1: string;
+  tituloLinea2: string;
+  texto: RichTextField;
+  imagen: ImageField;
 }
 
 export interface HomepageContacto {
-  title: string;
-  text: RichTextField;
-  data: HomepageContactoDataItem[];
+  titulo: string;
+  texto: RichTextField;
+  email: string;
+  telefono: string;
+  direccion: string;
 }
 
 export interface HomepageData {
   hero: HomepageHero;
-  tesuena: HomepageTeSuena;
+  dosAreas: HomepageDosAreas;
   hacemos: HomepageHacemos;
   servicios: HomepageServicios;
+  inmuebles: HomepageInmuebles;
   diferenciales: HomepageDiferenciales;
-  somos: HomepageSomos;
   contacto: HomepageContacto;
 }

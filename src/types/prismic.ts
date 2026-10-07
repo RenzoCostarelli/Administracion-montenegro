@@ -4,6 +4,7 @@ import type {
   ImageField,
   KeyTextField,
   LinkField,
+  BooleanField,
   GroupField,
 } from "@prismicio/client";
 
@@ -13,76 +14,105 @@ export type {
   ImageField,
   KeyTextField,
   LinkField,
+  BooleanField,
 };
 
-type HomapageDocumentDataCardsItem = {
-  title_line_1: KeyTextField;
-  title_line_2: KeyTextField;
-  texto: RichTextField;
+type HomepageDocumentDataAreasItem = {
+  nombre: KeyTextField;
+  tagline: KeyTextField;
+  descripcion: RichTextField;
 };
 
-type HomapageDocumentDataHacemosItem = {
-  titulo: KeyTextField;
-  description: RichTextField;
+type HomepageDocumentDataPasosItem = {
+  nombre: KeyTextField;
+  descripcion: RichTextField;
+  imagen: ImageField;
 };
 
-type HomapageDocumentDataLinesItem = {
-  line_title: KeyTextField;
-  service_description: KeyTextField;
-  service_text: RichTextField;
+type HomepageDocumentDataServiciosItem = {
+  nombre: KeyTextField;
+  descripcion: RichTextField;
 };
 
-type HomapageDocumentDataSomosProfile = {
-  profile_picture: ImageField;
-  profile_title: KeyTextField;
-  profile_name: KeyTextField;
-  profile_position: KeyTextField;
-  profile_phone: KeyTextField;
-  profile_text: RichTextField;
+type HomepageDocumentDataDestacadasItem = {
+  propiedad: LinkField;
 };
 
-type HomapageDocumentDataContactDataItem = {
-  data_name: KeyTextField;
-  data_position: KeyTextField;
-  data_phone: KeyTextField;
-};
-
-export type HomapageDocument = PrismicDocument<
+export type HomepageDocument = PrismicDocument<
   {
-    short_text: RichTextField;
-    title: RichTextField;
-    text: RichTextField;
-    background_image: ImageField;
-    bg_video: LinkField;
-    cta_text: KeyTextField;
-    tesuena_title: KeyTextField;
-    cards: GroupField<HomapageDocumentDataCardsItem>;
-    end_phrase_1: RichTextField;
-    end_phrase_2: RichTextField;
-    hacemos_label: KeyTextField;
-    hacemos_title: KeyTextField;
-    hacemos_subtitle: KeyTextField;
-    hacemos_items: GroupField<HomapageDocumentDataHacemosItem>;
-    "hacemos_end-text": RichTextField;
-    services_label: KeyTextField;
-    services_title: KeyTextField;
-    lines_items: GroupField<HomapageDocumentDataLinesItem>;
-    service_cta_text: KeyTextField;
-    diferenciales_label: KeyTextField;
-    diferenciales_title: KeyTextField;
-    diferenciales_subtitle: KeyTextField;
-    in_text: RichTextField;
-    out_text: RichTextField;
-    somos_label: KeyTextField;
-    somos_title: KeyTextField;
-    somos_subtitle: KeyTextField;
-    profiles: GroupField<HomapageDocumentDataSomosProfile>;
-    end_tagline: RichTextField;
-    contact_title: KeyTextField;
-    contact_text: RichTextField;
-    contact_data: GroupField<HomapageDocumentDataContactDataItem>;
+    hero_titulo: KeyTextField;
+    hero_texto: RichTextField;
+    hero_video_fondo: LinkField;
+    hero_cta_principal_label: KeyTextField;
+    hero_cta_principal_link: LinkField;
+    hero_cta_secundario_label: KeyTextField;
+    hero_cta_secundario_link: LinkField;
+    hero_filosofia_linea_1: KeyTextField;
+    hero_filosofia_linea_2: KeyTextField;
+    hero_filosofia_texto: RichTextField;
+
+    dosareas_titulo_linea_1: KeyTextField;
+    dosareas_titulo_linea_2: KeyTextField;
+    dosareas_texto: RichTextField;
+    dosareas_imagen: ImageField;
+    dosareas_areas: GroupField<HomepageDocumentDataAreasItem>;
+
+    hacemos_titulo: KeyTextField;
+    hacemos_subtitulo: KeyTextField;
+    hacemos_pasos: GroupField<HomepageDocumentDataPasosItem>;
+    hacemos_cta_label: KeyTextField;
+    hacemos_cta_link: LinkField;
+
+    servicios_titulo: KeyTextField;
+    servicios_subtitulo: KeyTextField;
+    servicios_items: GroupField<HomepageDocumentDataServiciosItem>;
+
+    inmuebles_titulo: KeyTextField;
+    inmuebles_subtitulo: KeyTextField;
+    inmuebles_destacadas: GroupField<HomepageDocumentDataDestacadasItem>;
+    inmuebles_cta_venta_label: KeyTextField;
+    inmuebles_cta_venta_link: LinkField;
+    inmuebles_cta_alquiler_label: KeyTextField;
+    inmuebles_cta_alquiler_link: LinkField;
+
+    diferenciales_titulo_linea_1: KeyTextField;
+    diferenciales_titulo_linea_2: KeyTextField;
+    diferenciales_texto: RichTextField;
+    diferenciales_imagen: ImageField;
+
+    contacto_titulo: KeyTextField;
+    contacto_texto: RichTextField;
+    contacto_email: KeyTextField;
+    contacto_telefono: KeyTextField;
+    contacto_direccion: KeyTextField;
   },
-  "homapage"
+  "homepage"
+>;
+
+type PropiedadDocumentDataImagenesItem = {
+  imagen: ImageField;
+};
+
+type PropiedadDocumentDataListItem = {
+  item: KeyTextField;
+};
+
+export type PropiedadDocument = PrismicDocument<
+  {
+    titulo: KeyTextField;
+    ubicacion: KeyTextField;
+    tipo_propiedad: KeyTextField;
+    descripcion: RichTextField;
+    caracteristicas: GroupField<PropiedadDocumentDataListItem>;
+    condiciones_comerciales: GroupField<PropiedadDocumentDataListItem>;
+    disponible_alquiler: BooleanField;
+    precio_alquiler: KeyTextField;
+    disponible_venta: BooleanField;
+    precio_venta: KeyTextField;
+    imagenes: GroupField<PropiedadDocumentDataImagenesItem>;
+    url_externa: LinkField;
+  },
+  "propiedad"
 >;
 
 export type ManifiestoDocument = PrismicDocument<

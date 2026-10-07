@@ -1,35 +1,19 @@
 ---
 import SectionTitle from "../ui/SectionTitle.astro";
+import PrismicRichText from "../PrismicRichText.astro";
+import type { HomepageServicios } from "../../types/homepage";
 
-const data = {
-  title: "Claridad para gestionar. Criterio para decidir.",
-  subtitle:
-    "Una administración que ordena, informa y acompaña las decisiones del consorcio con seguimiento y responsabilidad.",
-  items: [
-    {
-      name: "Expensas claras",
-      description: "Información comprensible y ordenada.",
-    },
-    {
-      name: "Seguimiento",
-      description: "Consultas y gestiones con responsables definidos.",
-    },
-    {
-      name: "Proveedores y mantenimiento",
-      description: "Coordinación de servicios y necesidades del edificio.",
-    },
-    {
-      name: "Asambleas y documentación",
-      description: "Organización de la información y acompañamiento formal.",
-    },
-  ],
-};
+interface Props {
+  data: HomepageServicios;
+}
+
+const { data } = Astro.props;
 ---
 
 <section id="servicios" class="bg-white py-28 md:py-36 px-6 md:px-12 lg:px-20">
   <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24">
     <div id="servicios-text">
-      <SectionTitle title={data.title} subtitle={data.subtitle} />
+      <SectionTitle title={data.titulo} subtitle={data.subtitulo} />
     </div>
 
     <div
@@ -39,10 +23,11 @@ const data = {
       {
         data.items.map((item) => (
           <div class="py-6 flex flex-col gap-1">
-            <h3 class="font-serif text-mont-dark text-xl">{item.name}</h3>
-            <p class="text-mont-dark-muted text-sm leading-relaxed font-sans">
-              {item.description}
-            </p>
+            <h3 class="font-serif text-mont-dark text-xl">{item.nombre}</h3>
+            <PrismicRichText
+              field={item.descripcion}
+              class="text-mont-dark-muted text-sm leading-relaxed font-sans"
+            />
           </div>
         ))
       }

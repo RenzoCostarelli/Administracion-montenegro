@@ -1,30 +1,59 @@
 ---
 import "swiper/css";
+import "swiper/css/navigation";
+import PrismicRichText from "../PrismicRichText.astro";
+import type { Propiedad } from "../../types/property";
 
 interface Props {
-  images?: string[];
-  tag: string;
-  title: string;
-  description: string;
-  price?: string;
-  url: string;
+  propiedad: Propiedad;
 }
 
-const { images = [], tag, title, description, price, url } = Astro.props;
-const hasImages = images.length > 0;
-const hasMultiple = images.length > 1;
+const { propiedad } = Astro.props;
+const {
+  titulo,
+  ubicacion,
+  tipoPropiedad,
+  descripcion,
+  caracteristicas,
+  condicionesComerciales,
+  disponibleAlquiler,
+  precioAlquiler,
+  disponibleVenta,
+  precioVenta,
+  imagenes,
+  urlExterna,
+} = propiedad;
+
+const meta = [tipoPropiedad, ubicacion].filter(Boolean).join(" — ");
+
+const hasImages = imagenes.length > 0;
+const hasMultipleImages = imagenes.length > 1;
+const previewImages = imagenes.slice(0, 4);
+
+const tag =
+  disponibleAlquiler && disponibleVenta
+    ? "ALQUILER / VENTA"
+    : disponibleVenta
+      ? "VENTA"
+      : "ALQUILER";
 ---
 
 <div class="property-card group bg-mont-off-white flex flex-col relative">
-  <a
-    href={url}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label={title}
-    class="absolute inset-0 z-0"
-  ></a>
+  {
+    urlExterna && (
+      <a
+        href={urlExterna}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={titulo}
+        class="absolute inset-0 z-0"
+      />
+    )
+  }
 
-  <div class="property-carousel aspect-4/3 bg-mont-sand/50 relative overflow-hidden" data-url={url}>
+  <div
+    class="property-carousel aspect-4/3 bg-mont-sand/50 relative overflow-hidden"
+  >
     {
       !hasImages && (
         <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -50,18 +79,41 @@ const hasMultiple = images.length > 1;
     {
       hasImages && (
         <div class="swiper w-full h-full">
-          <div class="swiper-wrapper">
-            {images.map((image) => (
+          <div class="swiper-wrapper  cursor-pointer">
+            {previewImages.map((image) => (
               <div class="swiper-slide">
                 <img
                   src={image}
-                  alt={title}
+                  alt={titulo}
                   class="w-full h-full object-cover"
                   loading="lazy"
                   onerror="this.remove()"
                 />
               </div>
             ))}
+            <div class="swiper-slide gallery-slide  bg-mont-dark cursor-pointer">
+              <div class="h-full w-full flex flex-col items-center justify-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-mont-cream"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
+                </svg>
+                <span class="text-mont-cream text-xs tracking-[0.15em] uppercase font-sans">
+                  Ver galería
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       )
@@ -72,14 +124,24 @@ const hasMultiple = images.length > 1;
       {tag}
     </span>
     {
-      hasMultiple && (
+      hasImages && (
         <>
           <button
             type="button"
             aria-label="Imagen anterior"
             class="carousel-prev z-10 absolute top-1/2 left-3 -translate-y-1/2 flex items-center justify-center w-8 h-8 bg-mont-dark text-mont-cream opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
@@ -88,16 +150,29 @@ const hasMultiple = images.length > 1;
             aria-label="Imagen siguiente"
             class="carousel-next z-10 absolute top-1/2 right-3 -translate-y-1/2 flex items-center justify-center w-8 h-8 bg-mont-dark text-mont-cream opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </button>
           <div class="z-10 absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5">
-            {images.map((_, i) => (
+            {Array.from({ length: previewImages.length + 1 }).map((_, i) => (
               <button
                 type="button"
                 aria-label={`Ir a la imagen ${i + 1}`}
-                class:list={["carousel-dot w-1.5 h-1.5 rounded-full", i === 0 ? "bg-mont-cream" : "bg-mont-cream/40"]}
+                class:list={[
+                  "carousel-dot w-1.5 h-1.5 rounded-full",
+                  i === 0 ? "bg-mont-cream" : "bg-mont-cream/40",
+                ]}
               />
             ))}
           </div>
@@ -106,24 +181,288 @@ const hasMultiple = images.length > 1;
     }
   </div>
   <div class="p-6 flex flex-col gap-2 pointer-events-none">
-    <h3 class="font-serif text-mont-dark text-lg leading-snug">{title}</h3>
-    <p class="text-mont-dark-muted text-sm leading-relaxed font-sans">{description}</p>
-    {price && <p class="font-serif text-mont-dark text-base pt-2">{price}</p>}
+    <h3 class="font-serif text-mont-dark text-lg leading-snug">{titulo}</h3>
+    {
+      meta && (
+        <p class="text-mont-dark-muted text-xs tracking-wide uppercase font-sans">
+          {meta}
+        </p>
+      )
+    }
+    <PrismicRichText
+      field={descripcion}
+      class="text-mont-dark-muted text-sm leading-relaxed font-sans"
+    />
+    <!-- {caracteristicas.length > 0 && (
+      <ul class="text-mont-dark-muted text-sm leading-relaxed font-sans list-disc list-inside">
+        {caracteristicas.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    )}
+    {condicionesComerciales.length > 0 && (
+      <ul class="text-mont-dark-muted text-sm leading-relaxed font-sans list-disc list-inside pt-1">
+        {condicionesComerciales.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    )} -->
+    <div class="flex flex-col gap-0.5 pt-2">
+      {
+        disponibleAlquiler && precioAlquiler && (
+          <p class="font-serif text-mont-dark text-base">
+            {disponibleVenta ? `Alquiler: ${precioAlquiler}` : precioAlquiler}
+          </p>
+        )
+      }
+      {
+        disponibleVenta && precioVenta && (
+          <p class="font-serif text-mont-dark text-base">
+            {disponibleAlquiler ? `Venta: ${precioVenta}` : precioVenta}
+          </p>
+        )
+      }
+    </div>
+    {
+      urlExterna && (
+        <a
+          href={urlExterna}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="relative z-10 pointer-events-auto w-fit mt-1 inline-flex items-center gap-1.5 text-xs tracking-[0.15em] uppercase font-sans text-mont-blue hover:text-mont-dark transition-colors"
+        >
+          Ver detalles
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+      )
+    }
   </div>
+
+  {
+    hasImages && (
+      <dialog
+        class="gallery-dialog p-0 border-0 m-auto w-[95vw] h-[90vh] max-w-4xl max-h-175 overflow-hidden bg-mont-dark backdrop:bg-mont-dark/90"
+        aria-label={`Galería de imágenes — ${titulo}`}
+      >
+        <div class="relative grid grid-rows-[1fr_auto] h-full w-full">
+          <button
+            type="button"
+            class="gallery-close z-20 absolute top-3 right-3 flex items-center justify-center w-10 h-10 rounded-full bg-mont-dark text-mont-cream hover:bg-mont-blue transition-colors"
+            aria-label="Cerrar galería"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+
+          {hasMultipleImages ? (
+            <div class="gallery-main swiper relative w-full h-full min-h-0">
+              <div class="swiper-wrapper">
+                {imagenes.map((image) => (
+                  <div class="swiper-slide p-6 sm:p-10">
+                    <img
+                      src={image}
+                      alt={titulo}
+                      class="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                aria-label="Imagen anterior"
+                class="gallery-prev z-10 absolute top-1/2 left-3 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-mont-dark text-mont-cream hover:bg-mont-blue transition-colors"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                aria-label="Imagen siguiente"
+                class="gallery-next z-10 absolute top-1/2 right-3 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-mont-dark text-mont-cream hover:bg-mont-blue transition-colors"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </div>
+          ) : (
+            <div class="relative min-h-0 flex items-center justify-center p-6 sm:p-10">
+              <img
+                src={imagenes[0]}
+                alt={titulo}
+                class="max-w-full max-h-full object-contain"
+                loading="lazy"
+              />
+            </div>
+          )}
+
+          {hasMultipleImages && (
+            <div class="gallery-thumbs flex gap-2 overflow-x-auto px-4 py-3 sm:px-6">
+              {imagenes.map((image, i) => (
+                <button
+                  type="button"
+                  aria-label={`Ir a la imagen ${i + 1}`}
+                  class="gallery-thumb shrink-0 w-14 h-14 sm:w-16 sm:h-16 overflow-hidden border-2 border-transparent cursor-pointer"
+                  data-index={i}
+                >
+                  <img
+                    src={image}
+                    alt=""
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </dialog>
+    )
+  }
 </div>
+
+<style>
+  .gallery-thumbs {
+    scrollbar-width: none;
+  }
+
+  .gallery-thumbs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery-thumb {
+    opacity: 0.5;
+    transition:
+      opacity 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .gallery-thumb.is-active {
+    opacity: 1;
+    border-color: var(--color-mont-cream);
+  }
+</style>
 
 <script>
   import Swiper from "swiper";
+  import { Navigation } from "swiper/modules";
 
-  document.querySelectorAll<HTMLElement>(".property-carousel").forEach((carousel) => {
-    const swiperEl = carousel.querySelector<HTMLElement>(".swiper");
-    if (!swiperEl) return;
+  document.querySelectorAll<HTMLElement>(".property-card").forEach((card) => {
+    const carousel = card.querySelector<HTMLElement>(".property-carousel");
+    const swiperEl = carousel?.querySelector<HTMLElement>(".swiper");
+    if (!carousel || !swiperEl) return;
 
-    const url = carousel.dataset.url;
     const prevBtn = carousel.querySelector<HTMLButtonElement>(".carousel-prev");
     const nextBtn = carousel.querySelector<HTMLButtonElement>(".carousel-next");
-    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>(".carousel-dot"));
+    const dots = Array.from(
+      carousel.querySelectorAll<HTMLButtonElement>(".carousel-dot"),
+    );
     const slideCount = swiperEl.querySelectorAll(".swiper-slide").length;
+
+    const dialog = card.querySelector<HTMLDialogElement>(".gallery-dialog");
+    const closeBtn = dialog?.querySelector<HTMLButtonElement>(".gallery-close");
+    const thumbs = Array.from(
+      dialog?.querySelectorAll<HTMLButtonElement>(".gallery-thumb") ?? [],
+    );
+    let gallerySwiper: Swiper | null = null;
+
+    function setActiveThumb(index: number) {
+      thumbs.forEach((thumb, i) =>
+        thumb.classList.toggle("is-active", i === index),
+      );
+      thumbs[index]?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+
+    function openGallery() {
+      if (!dialog) return;
+      dialog.showModal();
+      if (gallerySwiper) return;
+
+      const mainEl = dialog.querySelector<HTMLElement>(".gallery-main");
+      if (!mainEl) return;
+
+      gallerySwiper = new Swiper(mainEl, {
+        modules: [Navigation],
+        spaceBetween: 0,
+        navigation: {
+          nextEl: mainEl.querySelector<HTMLElement>(".gallery-next"),
+          prevEl: mainEl.querySelector<HTMLElement>(".gallery-prev"),
+        },
+        on: {
+          slideChange(instance) {
+            setActiveThumb(instance.activeIndex);
+          },
+        },
+      });
+      setActiveThumb(0);
+
+      // The dialog's first layout pass can settle after Swiper measures
+      // slide sizes, leaving the active slide at 0×0 — force a re-measure
+      // once the browser has committed the post-showModal() layout.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => gallerySwiper?.update());
+      });
+
+      thumbs.forEach((thumb, i) =>
+        thumb.addEventListener("click", () => gallerySwiper?.slideTo(i)),
+      );
+    }
+
+    closeBtn?.addEventListener("click", () => dialog?.close());
+    dialog?.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
 
     const swiper = new Swiper(swiperEl, {
       loop: slideCount > 1,
@@ -136,7 +475,7 @@ const hasMultiple = images.length > 1;
           });
         },
         click() {
-          if (url) window.open(url, "_blank", "noopener,noreferrer");
+          openGallery();
         },
       },
     });
@@ -144,7 +483,9 @@ const hasMultiple = images.length > 1;
     prevBtn?.addEventListener("click", () => swiper.slidePrev());
     nextBtn?.addEventListener("click", () => swiper.slideNext());
     dots.forEach((dot, i) =>
-      dot.addEventListener("click", () => (swiper.params.loop ? swiper.slideToLoop(i) : swiper.slideTo(i)))
+      dot.addEventListener("click", () =>
+        swiper.params.loop ? swiper.slideToLoop(i) : swiper.slideTo(i),
+      ),
     );
   });
 </script>

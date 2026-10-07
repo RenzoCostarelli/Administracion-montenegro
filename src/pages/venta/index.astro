@@ -4,91 +4,17 @@ import Navbar from "../../components/Navbar.astro";
 import PageHeader from "../../components/ui/PageHeader.astro";
 import PropertyGrid from "../../components/ui/PropertyGrid.astro";
 import Contacto from "../../components/home/Contacto.astro";
-import type { Property } from "../../types/property";
+import { getPropiedades } from "../../lib/getPropiedades";
+import { getHomepage } from "../../lib/getHomepage";
 
-const properties: Property[] = [
-  {
-    tag: "VENTA",
-    title: "Departamento 1 dormitorio — Pichincha",
-    description: "54 m², planta funcional y excelente luz natural.",
-    price: "USD 78.000",
-    url: "https://www.zonaprop.com.ar/",
-    images: [
-      "/images/properties/kitchen-3.jpg",
-      "/images/properties/bedroom-1.jpg",
-      "/images/properties/living-room-1.jpg",
-    ],
-  },
-  {
-    tag: "VENTA",
-    title: "PH 2 dormitorios — Alberdi",
-    description: "85 m², patio y terraza, a refaccionar.",
-    price: "USD 92.000",
-    url: "https://www.zonaprop.com.ar/",
-    images: [
-      "/images/properties/kitchen-4.jpg",
-      "/images/properties/bedroom-2.jpg",
-      "/images/properties/kitchen-1.jpg",
-    ],
-  },
-  {
-    tag: "VENTA",
-    title: "Local comercial — Zona Sur",
-    description: "90 m², esquina, alto tránsito peatonal.",
-    price: "USD 130.000",
-    url: "https://www.zonaprop.com.ar/",
-    images: [
-      "/images/properties/exterior-1.jpg",
-      "/images/properties/kitchen-5.jpg",
-      "/images/properties/kitchen-2.jpg",
-    ],
-  },
-  {
-    tag: "VENTA",
-    title: "Departamento 2 dormitorios — Puerto Norte",
-    description: "78 m², balcón terraza con vista al río, cochera incluida.",
-    price: "USD 145.000",
-    url: "https://www.zonaprop.com.ar/",
-    images: [
-      "/images/properties/bedroom-1.jpg",
-      "/images/properties/exterior-1.jpg",
-      "/images/properties/kitchen-3.jpg",
-    ],
-  },
-  {
-    tag: "VENTA",
-    title: "Semipiso 3 dormitorios — Centro",
-    description: "128 m², espacios generosos y arquitectura contemporánea.",
-    price: "USD 195.000",
-    url: "https://www.zonaprop.com.ar/",
-    images: [
-      "/images/properties/bedroom-2.jpg",
-      "/images/properties/living-room-1.jpg",
-      "/images/properties/kitchen-4.jpg",
-    ],
-  },
-  {
-    tag: "VENTA",
-    title: "Casa 3 dormitorios — Fisherton",
-    description: "210 m² cubiertos, jardín y quincho, cochera doble.",
-    price: "USD 260.000",
-    url: "https://www.zonaprop.com.ar/",
-    images: [
-      "/images/properties/bedroom-3.jpg",
-      "/images/properties/kitchen-1.jpg",
-      "/images/properties/kitchen-5.jpg",
-    ],
-  },
-];
+const [propiedades, homepage] = await Promise.all([getPropiedades(), getHomepage()]);
+const properties = propiedades.filter((propiedad) => propiedad.disponibleVenta);
 ---
 
 <Layout title="En venta — Administración Montenegro">
   <Navbar />
   <main>
-    <PageHeader
-      title="En venta"
-      subtitle="Propiedades en venta con información completa para decidir con criterio."
-    />
+    <PageHeader title="En venta" />
 
     <section class="bg-white py-28 md:py-36 px-6 md:px-12 lg:px-20">
       <div class="container mx-auto">
@@ -96,6 +22,6 @@ const properties: Property[] = [
       </div>
     </section>
 
-    <Contacto />
+    <Contacto data={homepage.contacto} />
   </main>
 </Layout>

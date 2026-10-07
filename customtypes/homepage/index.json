@@ -1,0 +1,209 @@
+{
+  "Hero": {
+    "hero_titulo": {
+      "type": "Text",
+      "config": { "label": "Título" }
+    },
+    "hero_texto": {
+      "type": "StructuredText",
+      "config": { "label": "Texto", "multi": "paragraph,strong,em" }
+    },
+    "hero_video_fondo": {
+      "type": "Link",
+      "config": { "label": "Video de fondo", "select": "media" }
+    },
+    "hero_cta_principal_label": {
+      "type": "Text",
+      "config": { "label": "CTA principal — texto" }
+    },
+    "hero_cta_principal_link": {
+      "type": "Link",
+      "config": { "label": "CTA principal — link", "allowTargetBlank": true }
+    },
+    "hero_cta_secundario_label": {
+      "type": "Text",
+      "config": { "label": "CTA secundario — texto" }
+    },
+    "hero_cta_secundario_link": {
+      "type": "Link",
+      "config": { "label": "CTA secundario — link", "allowTargetBlank": true }
+    },
+    "hero_filosofia_linea_1": {
+      "type": "Text",
+      "config": { "label": "Filosofía — línea 1" }
+    },
+    "hero_filosofia_linea_2": {
+      "type": "Text",
+      "config": { "label": "Filosofía — línea 2" }
+    },
+    "hero_filosofia_texto": {
+      "type": "StructuredText",
+      "config": { "label": "Filosofía — texto", "multi": "paragraph,strong,em" }
+    }
+  },
+  "Dos areas": {
+    "dosareas_titulo_linea_1": {
+      "type": "Text",
+      "config": { "label": "Título — línea 1" }
+    },
+    "dosareas_titulo_linea_2": {
+      "type": "Text",
+      "config": { "label": "Título — línea 2" }
+    },
+    "dosareas_texto": {
+      "type": "StructuredText",
+      "config": { "label": "Texto", "multi": "paragraph,strong,em" }
+    },
+    "dosareas_imagen": {
+      "type": "Image",
+      "config": { "label": "Imagen", "constraint": {}, "thumbnails": [] }
+    },
+    "dosareas_areas": {
+      "type": "Group",
+      "config": {
+        "label": "Áreas",
+        "fields": {
+          "nombre": { "type": "Text", "config": { "label": "Nombre" } },
+          "tagline": { "type": "Text", "config": { "label": "Tagline" } },
+          "descripcion": {
+            "type": "StructuredText",
+            "config": { "label": "Descripción", "multi": "paragraph,strong,em" }
+          }
+        }
+      }
+    }
+  },
+  "Hacemos": {
+    "hacemos_titulo": {
+      "type": "Text",
+      "config": { "label": "Título" }
+    },
+    "hacemos_subtitulo": {
+      "type": "Text",
+      "config": { "label": "Subtítulo" }
+    },
+    "hacemos_pasos": {
+      "type": "Group",
+      "config": {
+        "label": "Pasos",
+        "fields": {
+          "nombre": { "type": "Text", "config": { "label": "Nombre" } },
+          "descripcion": {
+            "type": "StructuredText",
+            "config": { "label": "Descripción", "multi": "paragraph,strong,em" }
+          },
+          "imagen": { "type": "Image", "config": { "label": "Imagen", "constraint": {}, "thumbnails": [] } }
+        }
+      }
+    },
+    "hacemos_cta_label": {
+      "type": "Text",
+      "config": { "label": "CTA — texto" }
+    },
+    "hacemos_cta_link": {
+      "type": "Link",
+      "config": { "label": "CTA — link", "allowTargetBlank": true }
+    }
+  },
+  "Servicios": {
+    "servicios_titulo": {
+      "type": "Text",
+      "config": { "label": "Título" }
+    },
+    "servicios_subtitulo": {
+      "type": "Text",
+      "config": { "label": "Subtítulo" }
+    },
+    "servicios_items": {
+      "type": "Group",
+      "config": {
+        "label": "Items",
+        "fields": {
+          "nombre": { "type": "Text", "config": { "label": "Nombre" } },
+          "descripcion": {
+            "type": "StructuredText",
+            "config": { "label": "Descripción", "multi": "paragraph,strong,em" }
+          }
+        }
+      }
+    }
+  },
+  "Inmuebles": {
+    "inmuebles_titulo": {
+      "type": "Text",
+      "config": { "label": "Título" }
+    },
+    "inmuebles_subtitulo": {
+      "type": "Text",
+      "config": { "label": "Subtítulo" }
+    },
+    "inmuebles_destacadas": {
+      "type": "Group",
+      "config": {
+        "label": "Propiedades destacadas",
+        "fields": {
+          "propiedad": {
+            "type": "Link",
+            "config": { "label": "Propiedad", "select": "document", "customtypes": ["propiedad"] }
+          }
+        }
+      }
+    },
+    "inmuebles_cta_venta_label": {
+      "type": "Text",
+      "config": { "label": "CTA venta — texto" }
+    },
+    "inmuebles_cta_venta_link": {
+      "type": "Link",
+      "config": { "label": "CTA venta — link", "allowTargetBlank": true }
+    },
+    "inmuebles_cta_alquiler_label": {
+      "type": "Text",
+      "config": { "label": "CTA alquiler — texto" }
+    },
+    "inmuebles_cta_alquiler_link": {
+      "type": "Link",
+      "config": { "label": "CTA alquiler — link", "allowTargetBlank": true }
+    }
+  },
+  "Diferenciales": {
+    "diferenciales_titulo_linea_1": {
+      "type": "Text",
+      "config": { "label": "Título — línea 1" }
+    },
+    "diferenciales_titulo_linea_2": {
+      "type": "Text",
+      "config": { "label": "Título — línea 2" }
+    },
+    "diferenciales_texto": {
+      "type": "StructuredText",
+      "config": { "label": "Texto", "multi": "paragraph,strong,em" }
+    },
+    "diferenciales_imagen": {
+      "type": "Image",
+      "config": { "label": "Imagen", "constraint": {}, "thumbnails": [] }
+    }
+  },
+  "Contacto": {
+    "contacto_titulo": {
+      "type": "Text",
+      "config": { "label": "Título" }
+    },
+    "contacto_texto": {
+      "type": "StructuredText",
+      "config": { "label": "Texto", "multi": "paragraph,strong,em" }
+    },
+    "contacto_email": {
+      "type": "Text",
+      "config": { "label": "Email" }
+    },
+    "contacto_telefono": {
+      "type": "Text",
+      "config": { "label": "Teléfono" }
+    },
+    "contacto_direccion": {
+      "type": "Text",
+      "config": { "label": "Dirección" }
+    }
+  }
+}

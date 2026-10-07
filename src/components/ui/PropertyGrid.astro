@@ -1,27 +1,16 @@
 ---
 import PropertyCard from "./PropertyCard.astro";
-import type { Property } from "../../types/property";
+import type { Propiedad } from "../../types/property";
 
 interface Props {
-  properties: Property[];
+  properties: Propiedad[];
 }
 
 const { properties } = Astro.props;
 ---
 
-<div id="property-grid" class="grid grid-cols-1 md:grid-cols-3 gap-px bg-mont-sand">
-  {
-    properties.map((property) => (
-      <PropertyCard
-        tag={property.tag}
-        title={property.title}
-        description={property.description}
-        price={property.price}
-        images={property.images}
-        url={property.url}
-      />
-    ))
-  }
+<div id="property-grid" class="grid grid-cols-1 md:grid-cols-3 gap-px">
+  {properties.map((propiedad) => <PropertyCard propiedad={propiedad} />)}
 </div>
 
 <script>

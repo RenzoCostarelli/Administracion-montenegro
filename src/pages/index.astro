@@ -9,8 +9,10 @@ import UltimosInmuebles from "../components/home/UltimosInmuebles.astro";
 import Diferenciales from "../components/home/Diferenciales.astro";
 import Contacto from "../components/home/Contacto.astro";
 import ComingSoon from "../components/ComingSoon.astro";
+import { getHomepage } from "../lib/getHomepage";
 
 const comingSoon = import.meta.env.COMING_SOON === "true";
+const homepage = comingSoon ? null : await getHomepage();
 ---
 
 <Layout
@@ -21,19 +23,19 @@ const comingSoon = import.meta.env.COMING_SOON === "true";
   }
 >
   {
-    comingSoon ? (
+    comingSoon || !homepage ? (
       <ComingSoon />
     ) : (
       <>
         <Navbar />
         <main>
-          <Hero />
-          <About />
-          <Hacemos />
-          <Servicios />
-          <UltimosInmuebles />
-          <Diferenciales />
-          <Contacto />
+          <Hero data={homepage.hero} />
+          <About data={homepage.dosAreas} />
+          <Hacemos data={homepage.hacemos} />
+          <Servicios data={homepage.servicios} />
+          <UltimosInmuebles data={homepage.inmuebles} />
+          <Diferenciales data={homepage.diferenciales} />
+          <Contacto data={homepage.contacto} />
         </main>
       </>
     )
