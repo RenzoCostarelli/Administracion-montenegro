@@ -21,7 +21,7 @@ astro dev logs        # View server logs
 
 ## Architecture
 
-Astro 7 static site with Prismic as headless CMS, Tailwind CSS v4, GSAP animations, and Lenis smooth scrolling.
+Astro 7 site with Prismic as headless CMS, Tailwind CSS v4, GSAP animations, and Lenis smooth scrolling. Deployed on Vercel via `@astrojs/vercel`. Pages are statically prerendered by default; the contact form endpoint opts into on-demand (server) rendering with `export const prerender = false`.
 
 **Data flow**: Prismic CMS → `src/lib/getHomepage.ts` / `src/lib/getPropiedades.ts` → typed interfaces in `src/types/` → Astro page components → section components.
 
@@ -31,6 +31,7 @@ Prismic has two custom types: `homepage` (singleton, one tab per home section �
 - `/` → `src/pages/index.astro`
 - `/alquileres/` → `src/pages/alquileres/index.astro` — `propiedad` documents with `disponible_alquiler: true`
 - `/venta/` → `src/pages/venta/index.astro` — `propiedad` documents with `disponible_venta: true`
+- `/api/contacto` → `src/pages/api/contacto.ts` — POST endpoint used by `home/Contacto.astro`'s form; sends mail via Gmail SMTP with `nodemailer`. Server-rendered on demand (`prerender = false`), everything else stays static.
 
 **Styling**: Tailwind CSS v4 is integrated via `@tailwindcss/vite` (not the PostCSS plugin). Custom fonts and CSS variables are defined in `src/styles/global.css`.
 
@@ -71,6 +72,11 @@ ScrollTrigger.create({
 
 - `PRISMIC_ACCESS_TOKEN` — required for fetching CMS content
 - `COMING_SOON` — optional. En `true` (string) muestra la landing temporal en `/` (`src/components/ComingSoon.astro`) en vez del sitio real. Es un flag de build-time: el build estático solo contiene la rama activa en el momento de correr `pnpm build`.
+- `GMAIL_USER` — required for the contact form. Gmail address used as the SMTP sender; that account needs 2-Step Verification enabled.
+- `GMAIL_APP_PASSWORD` — required for the contact form. App password for `GMAIL_USER` (generated at myaccount.google.com/apppasswords), not the account's normal password.
+- `CONTACT_TO_EMAIL` — optional. Inbox that receives contact-form submissions; defaults to `GMAIL_USER` when unset.
+
+See `.env.example` for the full list with setup notes.
 
 ## Business Context
 

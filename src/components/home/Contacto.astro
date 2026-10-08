@@ -151,11 +151,12 @@ const { data } = Astro.props;
   </div>
 </section>
 
-<script is:inline define:vars={{ email: data.email }}>
+<script is:inline>
   const form = document.getElementById("contact-form");
   const status = document.getElementById("contact-form-status");
+  const submitButton = form?.querySelector('button[type="submit"]');
 
-  form?.addEventListener("submit", (e) => {
+  form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     if (!(form instanceof HTMLFormElement) || !form.checkValidity()) {
@@ -163,20 +164,48 @@ const { data } = Astro.props;
       return;
     }
 
-    const data = new FormData(form);
-    const name = String(data.get("name") ?? "");
-    const senderEmail = String(data.get("email") ?? "");
-    const message = String(data.get("message") ?? "");
+    const formData = new FormData(form);
+    const name = String(formData.get("name") ?? "");
+    const email = String(formData.get("email") ?? "");
+    const message = String(formData.get("message") ?? "");
 
-    const subject = encodeURIComponent(`Consulta desde el sitio web — ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${senderEmail})`);
-
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    if (submitButton instanceof HTMLButtonElement) {
+      submitButton.disabled = true;
+    }
 
     if (status) {
-      status.textContent =
-        "Se abrirá tu cliente de email para enviar la consulta.";
+      status.textContent = "Enviando...";
       status.classList.remove("hidden");
+    }
+
+    try {
+      const response = await fetch("/api/contacto", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error ?? "No se pudo enviar la consulta.");
+      }
+
+      if (status) {
+        status.textContent = "¡Gracias! Te vamos a responder a la brevedad.";
+      }
+      form.reset();
+    } catch (error) {
+      if (status) {
+        status.textContent =
+          error instanceof Error
+            ? error.message
+            : "No se pudo enviar la consulta. Probá de nuevo más tarde.";
+      }
+    } finally {
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = false;
+      }
     }
   });
 </script>
