@@ -22,6 +22,10 @@ export function mapPropiedad(doc: PropiedadDocument): Propiedad {
     precioAlquiler: data.precio_alquiler ?? "",
     disponibleVenta: data.disponible_venta ?? false,
     precioVenta: data.precio_venta ?? "",
+    estado:
+      data.status === "Alquilado" || data.status === "Vendido"
+        ? data.status
+        : null,
     imagenes: (data.imagenes ?? [])
       .map((item) => item.imagen?.url)
       .filter((url): url is string => Boolean(url)),

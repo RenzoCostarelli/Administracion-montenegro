@@ -63,6 +63,15 @@
       "type": "Text",
       "config": { "label": "Precio de venta" }
     },
+    "status": {
+      "type": "Select",
+      "config": {
+        "label": "Estado",
+        "placeholder": "Modiciar una vez se haya vendido o alquilado la propiedad.",
+        "default_value": "Públicado",
+        "options": ["Públicado", "Alquilado", "Vendido"]
+      }
+    },
     "imagenes": {
       "type": "Group",
       "config": {

@@ -12,6 +12,7 @@ export interface Propiedad {
   precioAlquiler: string;
   disponibleVenta: boolean;
   precioVenta: string;
+  estado: "Alquilado" | "Vendido" | null;
   imagenes: string[];
   urlExterna: string | null;
 }

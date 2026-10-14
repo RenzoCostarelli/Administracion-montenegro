@@ -5,6 +5,7 @@ import type {
   KeyTextField,
   LinkField,
   BooleanField,
+  SelectField,
   GroupField,
 } from "@prismicio/client";
 
@@ -15,6 +16,7 @@ export type {
   KeyTextField,
   LinkField,
   BooleanField,
+  SelectField,
 };
 
 type HomepageDocumentDataAreasItem = {
@@ -97,6 +99,8 @@ type PropiedadDocumentDataListItem = {
   item: KeyTextField;
 };
 
+export type PropiedadStatus = "Públicado" | "Alquilado" | "Vendido";
+
 export type PropiedadDocument = PrismicDocument<
   {
     titulo: KeyTextField;
@@ -109,6 +113,7 @@ export type PropiedadDocument = PrismicDocument<
     precio_alquiler: KeyTextField;
     disponible_venta: BooleanField;
     precio_venta: KeyTextField;
+    status: SelectField<PropiedadStatus>;
     imagenes: GroupField<PropiedadDocumentDataImagenesItem>;
     url_externa: LinkField;
   },

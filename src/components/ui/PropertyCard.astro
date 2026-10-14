@@ -20,6 +20,7 @@ const {
   precioAlquiler,
   disponibleVenta,
   precioVenta,
+  estado,
   imagenes,
   urlExterna,
 } = propiedad;
@@ -123,6 +124,13 @@ const tag =
     >
       {tag}
     </span>
+    {
+      estado && (
+        <span class="z-10 absolute top-4 right-4 text-xs tracking-[0.2em] uppercase font-sans bg-red-600 text-white px-3 py-1.5 pointer-events-none">
+          {estado}
+        </span>
+      )
+    }
     {
       hasImages && (
         <>
