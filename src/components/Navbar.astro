@@ -51,7 +51,7 @@ const navItems = [
       }
 
       <a
-        href="https://www.instagram.com/gestion.montenegro"
+        href="https://www.instagram.com/montenegro.gestion"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Instagram"
@@ -109,14 +109,14 @@ const navItems = [
   class="fixed inset-0 z-40 bg-mont-off-white flex flex-col translate-x-full transition-transform duration-300 ease-in-out md:hidden"
   aria-hidden="true"
 >
-  <div class="flex flex-col justify-center flex-1 px-10 pt-20 gap-10">
+  <div class="flex flex-col justify-start flex-1 px-10 pt-30 gap-5">
     {
       navItems.map((item) => (
         <a
           href={item.href}
           data-nav-link
           data-mobile-link
-          class="text-3xl text-mont-dark tracking-widest uppercase font-serif font-light hover:opacity-60 transition-opacity"
+          class="font-medium text-mont-dark tracking-widest uppercase font-serif hover:opacity-60 transition-opacity"
         >
           {item.label}
         </a>
@@ -126,7 +126,7 @@ const navItems = [
 
   <div class="px-10 pb-12">
     <a
-      href="https://www.instagram.com/gestion.montenegro"
+      href="https://www.instagram.com/montenegro.gestion"
       target="_blank"
       rel="noopener noreferrer"
       class="flex items-center gap-3 text-sm text-mont-dark tracking-widest uppercase hover:opacity-60 transition-opacity"
